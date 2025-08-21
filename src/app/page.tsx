@@ -1,11 +1,15 @@
-import Image from "next/image";
+/* 
+  작성자 : 김재혁
+  작성일 : 2025-08-21
+  최종 수정일 : 2025-08-21
+*/
+
+import Header from "./components/Header";
 
 export default function Home() {
   return (
     <div id="wrap">
-      <div id="header">
-        <div className="inner"></div>
-      </div>
+      <Header/>
 
       <main id="container">
         <section className="content">
@@ -17,7 +21,9 @@ export default function Home() {
         </section>
       </main>
 
-      <div id="footer"></div>
+      <div id="footer">
+        <div className="inner"></div>
+      </div>
     </div>
   );
 }
