@@ -1,16 +1,25 @@
 /* 
   작성자 : 김재혁
   최초 작성일 : 2025-08-21
-  최종 수정일 : 2025-09-29
+  최종 수정일 : 2025-10-02
 */
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import SkillUpLogo from "@/assets/svg/skillUp_white.svg";
 import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import styles from "./style.module.css";
+import Modal from "../Modal";
+import LoginContent from "@/components/login/LoginContent";
 
 export default function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -18,9 +27,9 @@ export default function Header() {
         <h1 className={styles.logo}>
           <Link href="/">
             <Image
-              src={SkillUpLogo}      
+              src={SkillUpLogo}
               alt="스킬업 메인 로고"
-              width={120}        
+              width={120}
               height={18}
               priority
             />
@@ -39,9 +48,15 @@ export default function Header() {
               <FiSearch size={18} color={"c4c4c4"} />
             </button>
           </div>
-          <button className={styles.loginBtn}>로그인 · 회원가입</button>
+          <button onClick={openModal} className={styles.loginBtn}>
+            로그인 · 회원가입
+          </button>
         </div>
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <LoginContent />
+      </Modal>
     </header>
   );
 }
