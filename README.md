@@ -10,28 +10,61 @@ Next.js 기반 웹 프론트엔드 프로젝트 🚀
 ## 📂 프로젝트 구조
 ```
 📦public
- ┣ 📂fonts
- ┣ 📂images
  ┗ 📜favicon.ico
 
 📦src
  ┣ 📂app
- ┃ ┣ 📂login
- ┃ ┃ ┗ 📜page.tsx
- ┃ ┣ 📂signup
- ┃ ┃ ┗ 📜page.tsx
  ┃ ┣ 📜layout.tsx
- ┃ ┣ 📜page.tsx
- ┃ ┗ 📜global.css
+ ┃ ┣ 📜main.module.css
+ ┃ ┗ 📜page.tsx
+ ┣ 📂assets
+ ┃ ┣ 📂images
+ ┃ ┃ ┣ 📜loginImg.png
+ ┃ ┃ ┗ 📜main_banner.jpg
+ ┃ ┗ 📂svg
+ ┃ ┃ ┣ 📜googleIcon.svg
+ ┃ ┃ ┣ 📜kakaoIcon.svg
+ ┃ ┃ ┣ 📜naverIcon.svg
+ ┃ ┃ ┣ 📜skillUp_black.svg
+ ┃ ┃ ┣ 📜skillUp_symbol_black.svg
+ ┃ ┃ ┣ 📜skillUp_symbol_white.svg
+ ┃ ┃ ┗ 📜skillUp_white.svg
  ┣ 📂components
- ┃ ┣ 📜header.module.tsx
- ┃ ┣ 📜footer.module.tsx
- ┃ ┣ 📜Footer.tsx
- ┃ ┗ 📜Header.tsx
+ ┃ ┣ 📂club
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂common
+ ┃ ┃ ┣ 📂Footer
+ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┃ ┣ 📂Header
+ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┃ ┗ 📂Modal
+ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┣ 📂interest
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┣ 📂login
+ ┃ ┃ ┣ 📂LoginContent
+ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┃ ┗ 📂SocialLoginButton
+ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┣ 📂mainVisual
+ ┃ ┃ ┣ 📂IconMenu
+ ┃ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┗ 📜style.module.css
+ ┃ ┣ 📂recommend-contents
+ ┃ ┃ ┗ 📜index.tsx
+ ┃ ┗ 📂recommend-event
+ ┃ ┃ ┣ 📜index.tsx
+ ┃ ┃ ┗ 📜style.module.css
  ┣ 📂lib
- ┃ 
-
- - global.css : reset.css, 공통 layout 스타일, 폰트, body/html 기본 스타일 등
+ ┗ 📂styles
+ ┃ ┗ 📜global.css
  
  ```
 
