@@ -12,7 +12,7 @@ export default function ConferencePageLayout() {
         {[1, 2, 3, 4, 5].map((item) => (
           <EventCard
             key={item}
-            title="요즘 핫한 행사! 요즘 핫한 행사!"
+            title="요즘 핫한 행사! 요즘 핫한 행사! 요즘 핫한 행사! 요즘 핫한 행사! 요즘 핫한 행사! 요즘 핫한 행사!요즘 핫한 행사! 요즘 핫한 행사!"
             date="2025.01.01 - 2025.01.01"
             place="서울특별시 강남구 테헤란로 22길"
             price="0원"
