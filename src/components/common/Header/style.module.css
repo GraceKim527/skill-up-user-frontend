@@ -14,13 +14,19 @@
 }
 
 .header .inner {
-  max-width: 1440px;
+  max-width: 1240px;
   margin: 0 auto;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+}
+
+.logoNavMenu {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 
 /* header - topMenu */
