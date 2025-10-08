@@ -10,7 +10,18 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  background: none;
+}
+
+.mainHeader {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.subHeader {
+  background: var(--Common-white);
 }
 
 .header .inner {

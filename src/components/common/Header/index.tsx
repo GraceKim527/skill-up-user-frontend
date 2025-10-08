@@ -27,7 +27,13 @@ export default function Header({ variant }: HeaderProps) {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <header className={styles.header}>
+    <header
+      className={
+        styles.header +
+        " " +
+        (variant === "main" ? styles.mainHeader : styles.subHeader)
+      }
+    >
       <div className={styles.inner}>
         {/* 로고 + Nav 메뉴바 */}
         <div className={styles.logoNavMenu}>
