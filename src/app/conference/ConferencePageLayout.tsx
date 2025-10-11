@@ -5,6 +5,7 @@ import EventCard from "@/components/events/EventCard";
 import styles from "./styles.module.css";
 import SortDropdown from "@/components/events/sorting/SortDropdown";
 import FilterButton from "@/components/events/filters/FilterButton";
+import ConferenceFilterView from "@/components/events/filters/views/ConferenceFilterView";
 
 export default function ConferencePageLayout() {
   return (
@@ -13,7 +14,7 @@ export default function ConferencePageLayout() {
         <EventHeader title="컨퍼런스 · 세미나" count={10} />
         <div className={styles.eventHeaderFilterSortContainer}>
           <FilterButton>
-            <div>asdfasdf</div>
+            <ConferenceFilterView />
           </FilterButton>
           <SortDropdown />
         </div>
