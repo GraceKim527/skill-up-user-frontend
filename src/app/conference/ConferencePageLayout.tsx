@@ -1,22 +1,31 @@
 // src/app/conference/ConferencePageLayout.tsx
 
+"use client";
+
+import { useState } from "react";
 import EventHeader from "@/components/events/EventHeader";
 import EventCard from "@/components/events/EventCard";
 import styles from "./styles.module.css";
 import SortDropdown from "@/components/events/sorting/SortDropdown";
 import FilterButton from "@/components/events/filters/FilterButton";
 import ConferenceFilterView from "@/components/events/filters/views/ConferenceFilterView";
+import RoleSelector from "@/components/events/filters/RoleSelector";
+import { RoleOption } from "@/components/events/filters/types/role";
 
 export default function ConferencePageLayout() {
+  const [selectedRoles, setSelectedRoles] = useState<RoleOption[]>(["전체"]);
   return (
     <div className={styles.conferencePageLayout}>
       <div className={styles.pageHeader}>
         <EventHeader title="컨퍼런스 · 세미나" count={10} />
         <div className={styles.eventHeaderFilterSortContainer}>
-          <FilterButton>
-            <ConferenceFilterView />
-          </FilterButton>
-          <SortDropdown />
+          <RoleSelector selected={selectedRoles} onSelect={setSelectedRoles} />
+          <div className={styles.filterButtonContainer}>
+            <FilterButton>
+              <ConferenceFilterView />
+            </FilterButton>
+            <SortDropdown />
+          </div>
         </div>
       </div>
       <div className={styles.eventCardList}>
