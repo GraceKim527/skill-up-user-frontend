@@ -18,7 +18,6 @@
   padding: 0;
   border: none;
   color: var(--Neutral-60);
-
 }
 
 .primary {
@@ -52,7 +51,7 @@
 }
 
 .extraLarge {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   letter-spacing: -0.05rem;
 }
 

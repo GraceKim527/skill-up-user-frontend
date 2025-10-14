@@ -25,6 +25,7 @@ import { DropdownOption } from "@/components/common/Dropdown";
 
 import EventEmpty from "@/components/events/EventEmpty";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
+import FilterBadges from "@/components/events/filters/FilterBadges";
 
 const sortOptions: DropdownOption[] = [
   { label: "인기순", value: "popular" },
@@ -65,6 +66,7 @@ export default function ConferencePageLayout({
         <div className={styles.eventHeaderFilterSortContainer}>
           <RoleSelector selected={selectedRoles} onSelect={setSelectedRoles} />
           <div className={styles.filterButtonContainer}>
+            <FilterBadges />
             <FilterButton onApply={handleApply} onReset={handleReset}>
               <ConferenceFilterView />
             </FilterButton>
@@ -80,7 +82,7 @@ export default function ConferencePageLayout({
         </div>
       </div>
       <div className={styles.eventCardListContainer}>
-        {eventList.length !== 0 ? (
+        {eventList.length === 0 ? (
           <>
             <EventEmpty title="컨퍼런스 · 세미나" url="/conference/create" />
             <div className={styles.eventRecommendCardList}>
