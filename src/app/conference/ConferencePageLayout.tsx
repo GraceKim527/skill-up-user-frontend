@@ -26,11 +26,21 @@ import { DropdownOption } from "@/components/common/Dropdown";
 import EventEmpty from "@/components/events/EventEmpty";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import FilterBadges from "@/components/events/filters/FilterBadges";
+import Pagination from "@/components/common/Pagination";
+import { useState } from "react";
 
 const sortOptions: DropdownOption[] = [
   { label: "인기순", value: "popular" },
   { label: "최신등록순", value: "recent" },
   { label: "모집마감순", value: "deadline" },
+];
+
+const goToPageOptions: DropdownOption[] = [
+  { label: "1", value: "1" },
+  { label: "2", value: "2" },
+  { label: "3", value: "3" },
+  { label: "4", value: "4" },
+  { label: "5", value: "5" },
 ];
 
 export default function ConferencePageLayout({
@@ -46,6 +56,7 @@ export default function ConferencePageLayout({
     tempOnOfflineFilterAtom
   );
   const [tempFreeFilter, setTempFreeFilter] = useAtom(tempFreeFilterAtom);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleApply = () => {
     setOnOfflineFilter(tempOnOfflineFilter);
@@ -108,18 +119,28 @@ export default function ConferencePageLayout({
             </div>
           </>
         ) : (
-          <div className={styles.eventCardList}>
-            {eventList.map((item) => (
-              // 목업 데이터
-              <EventCard
-                key={item.id}
-                title={item.title}
-                date={item.date}
-                place={item.place}
-                price={item.price}
-                category={item.category}
-              />
-            ))}
+          <div className={styles.eventCardListContainer}>
+            <div className={styles.eventCardList}>
+              {eventList.map((item) => (
+                // 목업 데이터
+                <EventCard
+                  key={item.id}
+                  title={item.title}
+                  date={item.date}
+                  place={item.place}
+                  price={item.price}
+                  category={item.category}
+                />
+              ))}
+            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={10}
+              onPageChange={setCurrentPage}
+              options={goToPageOptions}
+              selected={goToPageOptions[0]}
+              onSelect={(option) => setCurrentPage(parseInt(option.value))}
+            />
           </div>
         )}
       </div>

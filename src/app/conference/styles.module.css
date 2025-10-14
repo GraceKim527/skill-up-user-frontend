@@ -32,6 +32,9 @@
 
 .eventCardListContainer {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6.25rem;
 }
 
 .eventCardList {
