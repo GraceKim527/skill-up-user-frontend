@@ -77,7 +77,7 @@ export default function ConferencePageLayout({
               }}
             />
             <FilterButton onApply={handleApply} onReset={handleReset}>
-              <ConferenceFilterView pageId="conference" />
+              <ConferenceFilterView />
             </FilterButton>
             <SortDropdown
               selected={
