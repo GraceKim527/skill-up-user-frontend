@@ -13,31 +13,38 @@ export default function ConferenceDetailLayout() {
     <div className={styles.conferenceDetailLayout}>
       <StickyApplySection />
       <div className={styles.conferenceDetailContent}>
-        <EventInfoCard title="행사 설명">asdf</EventInfoCard>
-        <EventInfoCard title="모집 기간" isDate>
-          <div className={styles.eventInfoCardContentDate}>
-            <p>2025.01.01 ~ 2025.01.01</p>
-            <Badge label="N일 남았어요" />
-          </div>
-        </EventInfoCard>
-        <EventInfoCard title="참가비">
-          <div className={styles.eventInfoCardContentPrice}>
-            <p>0원</p>
-            <Badge label="무료" />
-          </div>
-        </EventInfoCard>
-        <EventInfoCard title="장소">
-          <div className={styles.eventInfoCardContentPlaceList}>
-            <div className={styles.eventInfoCardContentPlace}>
-              <Image src={GlobeIcon} alt="globe icon" />
-              <p>오프라인</p>
+        <div className={styles.conferenceDetailContentItem}>
+          <EventInfoCard title="행사 설명">asdf</EventInfoCard>
+          <EventInfoCard title="모집 기간" isDate>
+            <div className={styles.eventInfoCardContentDate}>
+              <p>2025.01.01 ~ 2025.01.01</p>
+              <Badge label="N일 남았어요" />
             </div>
-            <div className={styles.eventInfoCardContentPlace}>
-              <Image src={CursorIcon} alt="cursor icon" />
-              <p>서울특별시 강남구 테헤란로 22길</p>
+          </EventInfoCard>
+          <EventInfoCard title="참가비">
+            <div className={styles.eventInfoCardContentPrice}>
+              <p>0원</p>
+              <Badge label="무료" />
             </div>
-          </div>
-        </EventInfoCard>
+          </EventInfoCard>
+          <EventInfoCard title="장소">
+            <div className={styles.eventInfoCardContentPlaceList}>
+              <div className={styles.eventInfoCardContentPlace}>
+                <Image src={GlobeIcon} alt="globe icon" />
+                <p>오프라인</p>
+              </div>
+              <div className={styles.eventInfoCardContentPlace}>
+                <Image src={CursorIcon} alt="cursor icon" />
+                <p>서울특별시 강남구 테헤란로 22길</p>
+                {/* TODO : 추후 네이버 지도 api 추가 */}
+              </div>
+            </div>
+          </EventInfoCard>
+        </div>
+        <div className={styles.conferenceOtherEvent}>
+          <h3>이런 행사는 어떠세요?</h3>
+          <div className={styles.conferenceOtherEventList}></div>
+        </div>
       </div>
     </div>
   );

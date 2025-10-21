@@ -109,6 +109,7 @@ export default function HackathonPageLayout({
                   // 목업 데이터
                   <EventCard
                     key={item.id}
+                    id={item.id.toString()}
                     title={item.title}
                     date={item.date}
                     place={item.place}
@@ -126,6 +127,7 @@ export default function HackathonPageLayout({
                 // 목업 데이터
                 <EventCard
                   key={item.id}
+                  id={item.id.toString()}
                   title={item.title}
                   date={item.date}
                   place={item.place}

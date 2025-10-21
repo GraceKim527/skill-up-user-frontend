@@ -8,8 +8,10 @@ import CalendarIcon from "@/assets/svg/calendarIcon.svg";
 import LocationIcon from "@/assets/svg/locationIcon.svg";
 import { BookmarkIcon } from "./icons";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface EventCardProps {
+  id: string;
   title: string;
   date: string;
   place: string;
@@ -18,6 +20,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({
+  id,
   title,
   date,
   place,
@@ -25,13 +28,16 @@ export default function EventCard({
   category,
 }: EventCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-
+  const router = useRouter();
   const handleBookmarkClick = () => {
     setIsBookmarked(!isBookmarked);
   };
 
   return (
-    <div className={styles.eventCard}>
+    <div
+      onClick={() => router.push(`/conference/${id}`)}
+      className={styles.eventCard}
+    >
       <div className={styles.eventCardImage}>
         {/* 목업 이미지 */}
         <Image src={LoginImage} alt="Event Card Image" fill priority />
