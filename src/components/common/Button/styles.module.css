@@ -80,3 +80,9 @@
   border: none;
   color: var(--Neutral-60);
 }
+
+.iconOpacity {
+  border-radius: 0.25rem;
+  background: var(--Opacity_b_40);
+  color: var(--Common-white);
+}

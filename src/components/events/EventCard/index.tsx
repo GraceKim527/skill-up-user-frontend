@@ -10,6 +10,7 @@ import { BookmarkIcon } from "./icons";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Text from "@/components/common/Text";
+import IconButton from "@/components/common/IconButton";
 
 interface EventCardProps {
   id: string;
@@ -30,7 +31,9 @@ export default function EventCard({
 }: EventCardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const router = useRouter();
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsBookmarked(!isBookmarked);
   };
 
@@ -45,19 +48,12 @@ export default function EventCard({
 
         <div className={styles.eventCardImageOverlay}>
           <Badge label="무료" variant="secondary" />
-          {/* TODO : 추후 버튼 공통 컴포넌트로 변경 예정 */}
-          <button
-            className={styles.eventCardImageOverlayButton}
+          <IconButton
+            variant="opacity"
+            size="large"
+            icon={<BookmarkIcon isBookmarked={isBookmarked} />}
             onClick={handleBookmarkClick}
-          >
-            {/* TODO : 북마크 활성화 아이콘 추가 예정 */}
-            <BookmarkIcon
-              className={`${styles.bookmarkIcon} ${
-                isBookmarked ? styles.bookmarkIconActive : ""
-              }`}
-              isBookmarked={isBookmarked}
-            />
-          </button>
+          />
         </div>
       </div>
       <div className={styles.eventCardContent}>

@@ -9,7 +9,8 @@ interface ButtonProps {
     | "tertiary"
     | "disabled"
     | "outlined"
-    | "textOnly";
+    | "textOnly"
+    | "iconOpacity";
   size?: "small" | "medium" | "large" | "extraLarge";
   disabled?: boolean;
   children?: React.ReactNode;
@@ -40,6 +41,7 @@ export default function Button({
       } ${variant === "disabled" ? styles.disabled : ""} ${
         variant === "outlined" ? styles.outlined : ""
       } ${variant === "textOnly" ? styles.textOnly : ""}
+      } ${variant === "iconOpacity" ? styles.iconOpacity : ""}
       } ${disabled ? styles.disabled : ""}
         `}
       onClick={onClick}
