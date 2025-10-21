@@ -3,9 +3,14 @@
 import styles from "./styles.module.css";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "tertiary" | "disabled" | "outlined";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "disabled"
+    | "outlined"
+    | "textOnly";
   size?: "small" | "medium" | "large" | "extraLarge";
-  textOnly?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
@@ -17,7 +22,6 @@ export default function Button({
   children,
   variant,
   size,
-  textOnly,
   disabled,
   className,
   onClick,
@@ -35,7 +39,7 @@ export default function Button({
         size === "extraLarge" ? styles.extraLarge : ""
       } ${variant === "disabled" ? styles.disabled : ""} ${
         variant === "outlined" ? styles.outlined : ""
-      } ${textOnly ? styles.textOnly : ""}
+      } ${variant === "textOnly" ? styles.textOnly : ""}
       } ${disabled ? styles.disabled : ""}
         `}
       onClick={onClick}
