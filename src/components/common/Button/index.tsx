@@ -3,7 +3,7 @@
 import styles from "./styles.module.css";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "tertiary" | "disabled" | "outlined";
   size?: "small" | "medium" | "large" | "extraLarge";
   textOnly?: boolean;
   disabled?: boolean;
@@ -33,6 +33,8 @@ export default function Button({
         size === "medium" ? styles.medium : ""
       } ${size === "large" ? styles.large : ""} ${
         size === "extraLarge" ? styles.extraLarge : ""
+      } ${variant === "disabled" ? styles.disabled : ""} ${
+        variant === "outlined" ? styles.outlined : ""
       } ${textOnly ? styles.textOnly : ""}
       } ${disabled ? styles.disabled : ""}
         `}
