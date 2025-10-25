@@ -41,6 +41,19 @@
   position: absolute;
   top: 10px;
   right: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.bookmarkBtn svg {
+  width: 15.17px;
+  height: 18.42px;
+  color: #fff;
 }
 
 /* 카드 내용 */
@@ -83,6 +96,12 @@
 .priceGroup {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.priceWrap {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
@@ -108,8 +127,11 @@
 .detailBtn {
   background: #000;
   color: #fff;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  transition: background 0.2s;
+  padding: 7px 16px 7px 16px;
+  border-radius: 4px;
+  gap: 2px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -4%;
 }
