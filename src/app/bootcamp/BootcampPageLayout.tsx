@@ -3,7 +3,7 @@
 "use client";
 
 import EventHeader from "@/components/events/EventHeader";
-import EventCard from "@/components/events/EventCard";
+import EventCard from "@/components/common/EventCard";
 import styles from "./styles.module.css";
 import SortDropdown from "@/components/events/sorting/SortDropdown";
 import FilterButton from "@/components/events/filters/FilterButton";
@@ -16,7 +16,7 @@ import Pagination from "@/components/common/Pagination";
 import EventEmpty from "@/components/events/EventEmpty";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Button from "@/components/common/Button";
-import { eventListMock } from "@/mocks/eventListMock";
+import { Event } from "@/components/common/EventCard/event.types";
 import { useState } from "react";
 
 const sortOptions: DropdownOption[] = [
@@ -36,7 +36,7 @@ const goToPageOptions: DropdownOption[] = [
 export default function BootcampPageLayout({
   eventList,
 }: {
-  eventList: typeof eventListMock;
+  eventList: Event[];
 }) {
   const {
     selectedRoles,
@@ -106,15 +106,7 @@ export default function BootcampPageLayout({
               <div className={styles.eventCardList}>
                 {eventList?.map((item) => (
                   // 목업 데이터
-                  <EventCard
-                    key={item.id}
-                    id={item.id.toString()}
-                    title={item.title}
-                    date={item.date}
-                    place={item.place}
-                    price={item.price}
-                    category={item.category}
-                  />
+                  <EventCard key={item.id} size="medium" event={item} />
                 ))}
               </div>
             </div>
@@ -124,15 +116,7 @@ export default function BootcampPageLayout({
             <div className={styles.eventCardList}>
               {eventList?.map((item) => (
                 // 목업 데이터
-                <EventCard
-                  key={item.id}
-                  id={item.id.toString()}
-                  title={item.title}
-                  date={item.date}
-                  place={item.place}
-                  price={item.price}
-                  category={item.category}
-                />
+                <EventCard key={item.id} size="medium" event={item} />
               ))}
             </div>
             <Pagination

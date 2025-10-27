@@ -72,6 +72,15 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  align-self: stretch;
+}
+
+.eventCardContentBodyItemTitleMedium {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   align-self: stretch;
 }
@@ -96,6 +105,11 @@
   overflow: hidden;
   color: var(--Neutral-40);
   text-overflow: ellipsis;
+}
+
+.eventCardContentFooter {
+  display: flex;
+  justify-content: space-between;
 }
 
 .eventCardContentFooterItem {

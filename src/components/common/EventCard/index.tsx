@@ -1,10 +1,7 @@
 // src/components/common/EventCard/index.tsx
 
-// src/components/events/EventCard/index.tsx
-
 import styles from "./styles.module.css";
 import Image from "next/image";
-import LoginImage from "@/assets/images/loginImg.png";
 import Badge from "@/components/common/Badge";
 import CalendarIcon from "@/assets/svg/calendarIcon.svg";
 import LocationIcon from "@/assets/svg/locationIcon.svg";
@@ -13,15 +10,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Text from "@/components/common/Text";
 import IconButton from "@/components/common/IconButton";
-
-interface Event {
-  id: string;
-  title: string;
-  date: string;
-  place: string;
-  price?: string;
-  category: string;
-}
+import Button from "@/components/common/Button";
+import { Event } from "./event.types";
 
 interface EventCardProps {
   size: "small" | "medium" | "large";
@@ -29,7 +19,8 @@ interface EventCardProps {
 }
 
 export default function EventCard({ size, event }: EventCardProps) {
-  const { id, title, date, place, price, category } = event;
+  const { id, title, date, place, price, category, url, image, badgeLabel } =
+    event;
   const [isBookmarked, setIsBookmarked] = useState(false);
   const router = useRouter();
   const handleBookmarkClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,16 +30,13 @@ export default function EventCard({ size, event }: EventCardProps) {
   };
 
   return (
-    <div
-      onClick={() => router.push(`/conference/${id}`)}
-      className={styles.eventCard}
-    >
+    <div onClick={() => router.push(url || "/")} className={styles.eventCard}>
       <div className={styles.eventCardImage}>
         {/* 목업 이미지 */}
-        <Image src={LoginImage} alt="Event Card Image" fill priority />
+        <Image src={image} alt="Event Card Image" fill priority />
 
         <div className={styles.eventCardImageOverlay}>
-          <Badge label="무료" variant="secondary" />
+          <Badge label={badgeLabel || ""} variant="opacity" />
           <IconButton
             variant="opacity"
             size="large"
@@ -61,14 +49,25 @@ export default function EventCard({ size, event }: EventCardProps) {
         <div className={styles.eventCardContentBody}>
           <div className={styles.eventCardContentBodyItem}>
             <Badge label={category} />
-            <Text
-              typography="sub1_m_20"
-              color="black"
-              as="h3"
-              className={styles.eventCardContentBodyItemTitle}
-            >
-              {title}
-            </Text>
+            {size === "large" || size === "small" ? (
+              <Text
+                typography="head3_m_24"
+                color="black"
+                as="h3"
+                className={styles.eventCardContentBodyItemTitle}
+              >
+                {title}
+              </Text>
+            ) : (
+              <Text
+                typography="sub1_m_20"
+                color="black"
+                as="h3"
+                className={styles.eventCardContentBodyItemTitleMedium}
+              >
+                {title}
+              </Text>
+            )}
           </div>
           <div className={styles.eventCardContentBodyDatePlace}>
             <div className={styles.eventCardContentBodyDatePlaceItem}>
@@ -93,14 +92,19 @@ export default function EventCard({ size, event }: EventCardProps) {
             </div>
           </div>
         </div>
-        <div className={styles.eventCardContentFooter}>
-          <div className={styles.eventCardContentFooterItem}>
-            <Text typography="sub2_m_18" color="black">
-              {price}
-            </Text>
-            <Badge label="무료" />
+        {(size === "large" || size === "medium") && (
+          <div className={styles.eventCardContentFooter}>
+            <div className={styles.eventCardContentFooterItem}>
+              <Text typography="sub2_m_18" color="black">
+                {price}
+              </Text>
+              {price === "0원" && <Badge label="무료" />}
+            </div>
+            <Button variant="secondary" size="medium">
+              자세히 보기
+            </Button>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
