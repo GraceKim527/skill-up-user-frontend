@@ -31,7 +31,7 @@ export const eventListMock: Event[] = [
     title: "개발자 밋업",
     date: "2025.03.01",
     place: "온라인",
-    price: "무료",
+    price: "0원",
     category: "개발",
     url: "/conference/3",
     image: LoginImage.src.toString(),
