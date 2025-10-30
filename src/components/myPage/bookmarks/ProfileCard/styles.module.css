@@ -1,8 +1,11 @@
 /* src/components/myPage/bookmarks/ProfileCard/styles.module.css */
 
 .profileCard {
+  position: sticky;
+  top: 6rem;
   display: flex;
   width: 18.5625rem;
+  height: fit-content;
   padding: 1.5rem 1.25rem;
   flex-direction: column;
   gap: 1.25rem;

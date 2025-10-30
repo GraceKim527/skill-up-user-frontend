@@ -8,7 +8,7 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import Modal from "../Modal";
 import LoginContent from "@/components/login/LoginContent";
-import EventCategoryTabs from "@/components/nav/EventCategoryTabs";
+import EventCategoryTabs from "@/components/common/Header/EventCategoryTabs";
 import Button from "../Button";
 import IconButton from "../IconButton";
 import UserIcon from "@/assets/icons/UserIcon";
