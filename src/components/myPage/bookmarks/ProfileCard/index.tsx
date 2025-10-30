@@ -7,7 +7,14 @@ import Button from "@/components/common/Button";
 import Text from "@/components/common/Text";
 import BulletPointIcon from "@/assets/svg/bulletPointIcon.svg";
 
-export default function ProfileCard() {
+interface ProfileCardProps {
+  name: string;
+  email: string;
+  job: string;
+  bookmarkCount: number;
+}
+
+export default function ProfileCard({ name, email, job, bookmarkCount }: ProfileCardProps) {
   return (
     <div className={styles.profileCard}>
       <div className={styles.profileCardContent}>
@@ -17,10 +24,10 @@ export default function ProfileCard() {
           </div>
           <div className={styles.profileCardHeaderRight}>
             <Text typography="sub3_m_16" color="black">
-              홍길동
+              {name}
             </Text>
             <Text typography="label4_m_12" color="neutral-50">
-              skillup@gmail.com
+              {email}
             </Text>
           </div>
         </div>
@@ -32,7 +39,7 @@ export default function ProfileCard() {
             <div className={styles.profileCardBodyItemContent}>
               <Image src={BulletPointIcon} alt="Bullet Point Icon" />
               <Text typography="label3_m_14" color="primary-strong">
-                개발자
+                {job}
               </Text>
             </div>
           </div>
@@ -43,7 +50,7 @@ export default function ProfileCard() {
             <div className={styles.profileCardBodyItemContent}>
               <Image src={BulletPointIcon} alt="Bullet Point Icon" />
               <Text typography="label3_m_14" color="primary-strong">
-                3개
+                {bookmarkCount}개
               </Text>
             </div>
           </div>

@@ -5,20 +5,30 @@
 import EventCard from "@/components/common/EventCard";
 import styles from "./styles.module.css";
 import ProfileCard from "@/components/myPage/bookmarks/ProfileCard";
-import LoginImage from "@/assets/images/loginImg.png";
 import Pagination from "@/components/common/Pagination";
 import Dropdown, { DropdownOption } from "@/components/common/Dropdown";
 import TabBar from "@/components/common/TabBar";
+import { Event } from "@/types/event/event";
 
 const sortOptions: DropdownOption[] = [
   { label: "마감임박순", value: "deadline" },
   { label: "최근 북마크순", value: "recent" },
 ];
 
-export default function BookmarkPageLayout() {
+export default function BookmarkPageLayout({
+  eventList,
+}: {
+  eventList: Event[];
+}) {
   return (
     <div className={styles.bookmarkPageLayout}>
-      <ProfileCard />
+      {/* 목업 데이터 */}
+      <ProfileCard
+        name="홍길동"
+        email="skillup@gmail.com"
+        job="개발자"
+        bookmarkCount={3}
+      />
       <div className={styles.bookmarkListContainer}>
         <div className={styles.bookmarkListHeader}>
           <div className={styles.bookmarkListHeaderFilter}>
@@ -41,21 +51,8 @@ export default function BookmarkPageLayout() {
             />
           </div>
           <div className={styles.bookmarkCardList}>
-            {Array.from({ length: 9 }).map((_, index) => (
-              <EventCard
-                key={index}
-                size="medium"
-                event={{
-                  id: index.toString(),
-                  title: "test",
-                  date: "2025-01-01",
-                  place: "test",
-                  category: "test",
-                  url: "test",
-                  image: LoginImage.src.toString(),
-                  badgeLabel: "test",
-                }}
-              />
+            {eventList.map((event, index) => (
+              <EventCard key={index} size="medium" event={event} />
             ))}
           </div>
         </div>
