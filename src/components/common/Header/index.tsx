@@ -15,6 +15,7 @@ import UserIcon from "@/assets/icons/UserIcon";
 import SearchIcon from "@/assets/svg/searchIcon.svg";
 import ProfileModal from "@/components/login/ProfileModal";
 import LogoDefaultImg from "@/assets/images/logoDefaultImg.png";
+import Alert from "../Alert";
 
 interface HeaderProps {
   variant: "main" | "sub";
@@ -29,6 +30,9 @@ export default function Header({ variant }: HeaderProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const toggleProfileModal = () => setIsProfileModalOpen((prev) => !prev);
   const closeProfileModal = () => setIsProfileModalOpen(false);
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const toggleAlert = () => setIsAlertOpen((prev) => !prev);
 
   // 임의로 로그인 상태 확인
   const isLogin = true;
@@ -117,7 +121,7 @@ export default function Header({ variant }: HeaderProps) {
               로그인 · 회원가입
             </Button>
           ) : (
-            <Button variant="secondary" size="large" onClick={openModal}>
+            <Button variant="secondary" size="large" onClick={toggleAlert}>
               로그아웃
             </Button>
           )}
@@ -127,6 +131,12 @@ export default function Header({ variant }: HeaderProps) {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <LoginContent />
       </Modal>
+      <Alert
+        isOpen={isAlertOpen}
+        toggle={toggleAlert}
+        title="로그아웃 하시겠습니까?"
+        message="로그아웃하면 일부 기능을 이용할 수 없습니다."
+      />
     </header>
   );
 }

@@ -1,7 +1,6 @@
 // src/components/events/EventEmpty/index.tsx
 
-import CautionIcon from "@/assets/svg/cautionIcon.svg";
-import Image from "next/image";
+import CautionIcon from "@/assets/icons/CautionIcon";
 import styles from "./styles.module.css";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
@@ -19,7 +18,7 @@ export default function EventEmpty({ title, url }: EventEmptyProps) {
   return (
     <div className={styles.eventCardListEmpty}>
       <div className={styles.eventCardListEmptyTitle}>
-        <Image src={CautionIcon} alt="Caution Icon" />
+        <CautionIcon color="var(--Primary-normal)" />
         <Text typography="sub2_m_18" color="neutral-30">
           {title}에 등록된 행사가 없어요
         </Text>
