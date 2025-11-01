@@ -4,7 +4,7 @@ import ProfileEditPageLayout from "./ProfileEditPageLayout";
 
 export default function EditProfilePage() {
   return (
-    <div style={{ marginTop: "6rem" }}>
+    <div style={{ paddingTop: "6rem" }}>
       <ProfileEditPageLayout />
     </div>
   );
