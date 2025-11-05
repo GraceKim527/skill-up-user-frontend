@@ -28,7 +28,7 @@ export default function Home() {
     <div id="wrap">
       {/* 시각장애인용 */}
       <p id="skipNav" className="hide">
-        <Link href="#main">본문 바로가기</Link>
+        <Link href="/">본문 바로가기</Link>
       </p>
 
       <Header variant="main" />
