@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Text from "@/components/common/Text";
+import Flex from "@/components/common/Flex";
 
 interface TabItem {
   label: string;
@@ -17,13 +18,16 @@ interface TabBarProps {
 
 export default function TabBar({ tabs, activeIndex, onChange }: TabBarProps) {
   return (
-    <div className={styles.tabBar}>
+    <Flex justify="center">
       {tabs.map((tab, index) => {
         const isActive = index === activeIndex;
         return (
-          <button
+          <Flex
             key={index}
-            className={`${styles.tabItem} ${isActive ? styles.active : ""}`}
+            as="button"
+            align="center"
+            gap={0.12}
+            className={`${styles.tab} ${isActive ? styles.active : ""}`}
             onClick={() => onChange(index)}
           >
             <Text typography="sub3_m_16" color="black">
@@ -34,9 +38,9 @@ export default function TabBar({ tabs, activeIndex, onChange }: TabBarProps) {
                 {tab.count}
               </Text>
             )}
-          </button>
+          </Flex>
         );
       })}
-    </div>
+    </Flex>
   );
 }

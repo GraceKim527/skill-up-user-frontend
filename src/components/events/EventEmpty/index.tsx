@@ -6,6 +6,7 @@ import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
 import Text from "@/components/common/Text";
+import Flex from "@/components/common/Flex";
 
 interface EventEmptyProps {
   title: string;
@@ -16,13 +17,19 @@ export default function EventEmpty({ title, url }: EventEmptyProps) {
   const router = useRouter();
 
   return (
-    <div className={styles.eventCardListEmpty}>
-      <div className={styles.eventCardListEmptyTitle}>
+    <Flex
+      direction="column"
+      justify="center"
+      align="center"
+      gap={1}
+      className={styles.container}
+    >
+      <Flex direction="column" align="center" gap={0.5}>
         <CautionIcon color="var(--Primary-normal)" />
         <Text typography="sub2_m_18" color="neutral-30">
           {title}에 등록된 행사가 없어요
         </Text>
-      </div>
+      </Flex>
       <Button
         variant="secondary"
         size="medium"
@@ -31,6 +38,6 @@ export default function EventEmpty({ title, url }: EventEmptyProps) {
       >
         행사 등록하기
       </Button>
-    </div>
+    </Flex>
   );
 }

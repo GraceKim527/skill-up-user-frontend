@@ -1,4 +1,4 @@
-// src/app/my/bookmarks/BookmarkPageLayout.tsx
+// src/app/bookmarks/BookmarkPageLayout.tsx
 
 "use client";
 
@@ -9,6 +9,7 @@ import Pagination from "@/components/common/Pagination";
 import Dropdown, { DropdownOption } from "@/components/common/Dropdown";
 import TabBar from "@/components/common/TabBar";
 import { Event } from "@/types/event/event";
+import Flex from "@/components/common/Flex";
 
 const sortOptions: DropdownOption[] = [
   { label: "마감임박순", value: "deadline" },
@@ -21,7 +22,10 @@ export default function BookmarkPageLayout({
   eventList: Event[];
 }) {
   return (
-    <div className={styles.bookmarkPageLayout}>
+    <Flex
+      gap={1}
+      className={styles.container}
+    >
       {/* 목업 데이터 */}
       <ProfileCard
         name="홍길동"
@@ -29,9 +33,9 @@ export default function BookmarkPageLayout({
         job="개발자"
         bookmarkCount={3}
       />
-      <div className={styles.bookmarkListContainer}>
-        <div className={styles.bookmarkListHeader}>
-          <div className={styles.bookmarkListHeaderFilter}>
+      <Flex direction="column" gap={6.25}>
+        <Flex direction="column" gap={1.25}>
+          <Flex align="center" justify="space-between">
             <TabBar
               tabs={[
                 { label: "진행 중", count: 10 },
@@ -49,13 +53,13 @@ export default function BookmarkPageLayout({
                 console.log(option);
               }}
             />
-          </div>
-          <div className={styles.bookmarkCardList}>
+          </Flex>
+          <div className={styles.cardList}>
             {eventList.map((event, index) => (
               <EventCard key={index} size="medium" event={event} />
             ))}
           </div>
-        </div>
+        </Flex>
         <Pagination
           currentPage={1}
           totalPages={10}
@@ -67,7 +71,7 @@ export default function BookmarkPageLayout({
           }}
           goToPage={false}
         />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }
