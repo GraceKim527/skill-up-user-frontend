@@ -20,6 +20,7 @@ import FilterBadges from "@/components/events/filters/FilterBadges";
 import Pagination from "@/components/common/Pagination";
 import { useState } from "react";
 import Text from "@/components/common/Text";
+import Flex from "@/components/common/Flex";
 import { Event } from "@/types/event/event";
 
 const sortOptions: DropdownOption[] = [
@@ -59,12 +60,12 @@ export default function ConferencePageLayout({
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <div className={styles.conferencePageLayout}>
-      <div className={styles.pageHeader}>
+    <Flex direction="column" align="flex-start" gap={1.25} className={styles.conferencePageLayout}>
+      <Flex direction="column" gap={1.5} style={{ width: "100%" }}>
         <EventHeader title="컨퍼런스 · 세미나" count={10} />
-        <div className={styles.eventHeaderFilterSortContainer}>
+        <Flex align="center" justify="space-between">
           <RoleSelector selected={selectedRoles} onSelect={setSelectedRoles} />
-          <div className={styles.filterButtonContainer}>
+          <Flex align="center" gap={0.5}>
             <FilterBadges
               onOfflineFilter={onOfflineFilter}
               freeFilter={freeFilter}
@@ -88,15 +89,15 @@ export default function ConferencePageLayout({
               setSelected={(option) => setSortOption(option.value)}
               options={sortOptions}
             />
-          </div>
-        </div>
-      </div>
-      <div className={styles.eventCardListContainer}>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex direction="column" gap={6.25} style={{ width: "100%" }}>
         {eventList.length === 0 ? (
           <>
             <EventEmpty title="컨퍼런스 · 세미나" url="/conference/create" />
-            <div className={styles.eventRecommendCardList}>
-              <div className={styles.eventRecommendCardListTitle}>
+            <Flex direction="column" gap={1}>
+              <Flex align="center" justify="space-between">
                 <Text typography="head3_m_24" color="black">
                   이런 행사는 어떠세요?
                 </Text>
@@ -107,16 +108,16 @@ export default function ConferencePageLayout({
                 >
                   IT 행사 더보기
                 </Button>
-              </div>
+              </Flex>
               <div className={styles.eventCardList}>
                 {eventList.map((item) => (
                   <EventCard key={item.id} size="medium" event={item} />
                 ))}
               </div>
-            </div>
+            </Flex>
           </>
         ) : (
-          <div className={styles.eventCardListContainer}>
+          <Flex direction="column" gap={6.25} style={{ width: "100%" }}>
             <div className={styles.eventCardList}>
               {eventList.map((item) => (
                 // 목업 데이터
@@ -131,9 +132,9 @@ export default function ConferencePageLayout({
               selected={goToPageOptions[0]}
               onSelect={(option) => setCurrentPage(parseInt(option.value))}
             />
-          </div>
+          </Flex>
         )}
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }
