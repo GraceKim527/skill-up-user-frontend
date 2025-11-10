@@ -1,32 +1,21 @@
-/* 섹션 컨테이너 */
 .ctaSection {
   max-width: 1440px;
   margin: 80px auto 0;
 }
 
-/* 내용 컨테이너 */
 .inner {
   max-width: 1240px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   min-height: 120px;
-  gap: 40px;
 }
 
-/* 좌측 텍스트 */
-.texts {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
 .line1 {
   font-size: 22px;
   font-weight: 500;
   color: #111;
   line-height: 1.4;
 }
+
 .line2 {
   font-size: 32px;
   font-weight: 800;

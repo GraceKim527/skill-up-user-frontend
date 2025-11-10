@@ -1,23 +1,12 @@
-/* 공통 CSS */
 .recommend {
   max-width: 1440px;
   margin: 80px auto;
   padding: 0 20px;
 }
 
-/* 헤더 */
 .sectionHead {
   max-width: 1240px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 40px;
   margin-bottom: 20px;
-}
-
-.titles {
-  display: flex;
-  flex-direction: column;
 }
 
 .subTitle {
@@ -38,7 +27,6 @@
   font-weight: 700;
 }
 
-/* 관심 + 신청마감 섹션 */
 .subEng {
   color: #e6e6e6;
   font-size: 18px;
@@ -59,17 +47,9 @@
   font-weight: 500;
 }
 
-/* 카드 리스트 */
 .cardList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* 더보기 버튼 */
-.moreBox {
-  display: flex;
-  justify-content: center;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 .moreBtn {

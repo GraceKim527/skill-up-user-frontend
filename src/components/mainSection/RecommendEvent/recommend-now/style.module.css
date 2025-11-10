@@ -1,18 +1,8 @@
-/* 하단 영역 정렬 */
 .bottomRow {
   max-width: 1240px;
   margin: 16px auto 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-/* 좌우 화살표 그룹 */
-.arrowGroup {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
 .arrowBtn {
   width: 36px;
   height: 36px;
@@ -24,21 +14,18 @@
   background: #fff;
   cursor: pointer;
 }
+
 .lightBtn {
   background: #fff;
 }
+
 .darkBtn {
   background: #000;
   border-color: #000;
 }
+
 .darkBtn svg path {
   stroke: #fff;
-}
-
-/* 더보기 버튼 */
-.moreBox {
-  display: flex;
-  justify-content: center;
 }
 
 .moreBtn {

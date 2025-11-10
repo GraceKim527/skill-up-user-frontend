@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";
 
 // 아이콘 import
@@ -24,27 +25,29 @@ export default function IconMenu() {
 
   return (
     <nav className={styles.iconMenu}>
-      <ul>
+      <Flex justify="center" gap="16px" as="ul">
         {menuItems.map((item, idx) => (
           <li
             key={idx}
-            className={idx === activeIdx ? styles.active : ""}
+            className={`${styles.menuItem} ${idx === activeIdx ? styles.active : ""}`}
             onClick={() => setActiveIdx(idx)}
           >
             <Link href={item.path} className={styles.link}>
-              <div className={styles.iconBox}>
-                <Image
-                  src={item.icon}
-                  alt={item.label}
-                  width={40}
-                  height={40}
-                />
-              </div>
-              <span>{item.label}</span>
+              <Flex direction="column" justify="center" align="center" gap="4px">
+                <Flex justify="center" align="center">
+                  <Image
+                    src={item.icon}
+                    alt={item.label}
+                    width={40}
+                    height={40}
+                  />
+                </Flex>
+                <span>{item.label}</span>
+              </Flex>
             </Link>
           </li>
         ))}
-      </ul>
+      </Flex>
     </nav>
   );
 }

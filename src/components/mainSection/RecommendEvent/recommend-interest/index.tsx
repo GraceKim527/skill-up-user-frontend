@@ -1,4 +1,5 @@
 // 관심있어하실 행사
+import Flex from "@/components/common/Flex";
 import globalStyles from "../style.module.css";
 import localStyles from "./style.module.css";
 import { FaRegBookmark } from "react-icons/fa";
@@ -17,27 +18,25 @@ export default function RecommendInterest() {
 
   return (
     <section className={localStyles.interestSection}>
-      <div className={localStyles.inner}>
-        {/* 왼쪽 텍스트 */}
-        <div className={localStyles.leftBox}>
+      <Flex justify="space-between" align="flex-start" gap="60px" className={localStyles.inner}>
+        <Flex direction="column" style={{ flex: 1, maxWidth: '440px' }}>
           <p className={globalStyles.subEng}>
-            HERE’S AN EVENT YOU MIGHT BE INTERESTED IN
+            HERE'S AN EVENT YOU MIGHT BE INTERESTED IN
           </p>
           <h2 className={globalStyles.interestTitle}>
-            <span className={globalStyles.interestSpan}>관심있어하실</span> 
+            <span className={globalStyles.interestSpan}>관심있어하실</span>
             행사를<br/> 골라왔어요
           </h2>
 
-          <div className={localStyles.keywordBox}>
+          <Flex wrap="wrap" gap="12px" className={localStyles.keywordBox}>
             {keywords.map((kw, i) => (
               <button key={i} className={localStyles.keywordBtn}>
                 {kw}
               </button>
             ))}
-          </div>
-        </div>
+          </Flex>
+        </Flex>
 
-        {/* 오른쪽 카드 2x2 */}
         <div className={localStyles.cardGrid}>
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className={localStyles.card}>
@@ -49,16 +48,16 @@ export default function RecommendInterest() {
                   className={localStyles.bookmarkBtn}
                 />
               </div>
-              <div className={localStyles.textBox}>
+              <Flex direction="column">
                 <h3 className={localStyles.metaTitle}>메인타이틀</h3>
                 <p className={localStyles.metaDesc}>
                   서브타이틀이 들어가면 좋겠어요
                 </p>
-              </div>
+              </Flex>
             </div>
           ))}
         </div>
-      </div>
+      </Flex>
     </section>
   );
 }

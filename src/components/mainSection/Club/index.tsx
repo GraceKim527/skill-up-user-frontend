@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";
 import Button from "@/components/common/Button";
 import ChevronLeftIcon from "@/assets/icons/ChevronLeftIcon";
@@ -24,42 +25,41 @@ export default function ClubChallenge() {
 
   return (
     <section className={styles.challengeSection} aria-labelledby="club-title">
-      {/* 헤더 */}
-      <div className={styles.sectionHead}>
-        <div className={styles.titles}>
+      <Flex justify="space-between" align="center" gap="40px" className={styles.sectionHead}>
+        <Flex direction="column" gap="4px">
           <p className={styles.subTitle}>동아리 · 해커톤 · 공모전</p>
           <h2 id="club-title" className={styles.title}>
             바로 도전 가능한 <span className={styles.titleSpan}>동아리·해커톤·공모전</span>
           </h2>
-        </div>
+        </Flex>
 
-        {/* 좌우 네비 */}
-        <div className={styles.arrowGroup}>
+        <Flex align="center" gap="12px">
           <button type="button" className={styles.arrowBtn} onClick={() => scroll("prev")} aria-label="이전">
             <ChevronLeftIcon />
           </button>
           <button type="button" className={`${styles.arrowBtn} ${styles.dark}`} onClick={() => scroll("next")} aria-label="다음">
             <ChevronRightIcon />
           </button>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
 
-      {/* 가로 슬라이드 */}
       <div className={styles.trackWrap}>
-        <div className={styles.track} ref={trackRef}>
-          {cards.map((c) => (
-            <article key={c.id} className={styles.card}>
-              <div className={styles.thumb} />
-              <div className={styles.overlay}>
-                <div className={styles.texts}>
-                  <div className={styles.cardTitle}>{c.title}</div>
-                  <p className={styles.cardDesc}>{c.desc}</p>
-                </div>
-                <Button size="small" variant="secondary">자세히 보기</Button>
-              </div>
-            </article>
-          ))}
-        </div>
+        <Flex gap="24px" className={styles.track} style={{ display: 'flex' }} as="div">
+          <div ref={trackRef} className={styles.trackInner}>
+            {cards.map((c) => (
+              <article key={c.id} className={styles.card}>
+                <div className={styles.thumb} />
+                <Flex align="flex-end" gap="12px" className={styles.overlay}>
+                  <Flex direction="column" gap="6px" className={styles.texts}>
+                    <div className={styles.cardTitle}>{c.title}</div>
+                    <p className={styles.cardDesc}>{c.desc}</p>
+                  </Flex>
+                  <Button size="small" variant="secondary">자세히 보기</Button>
+                </Flex>
+              </article>
+            ))}
+          </div>
+        </Flex>
       </div>
     </section>
   );

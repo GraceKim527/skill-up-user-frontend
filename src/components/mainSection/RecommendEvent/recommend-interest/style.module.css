@@ -1,29 +1,14 @@
-/* 관심 행사 CSS */
 .interestSection {
   background: #212025;
   padding: 100px 0;
 }
 
 .inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   max-width: 1240px;
   margin: 0 auto;
-  gap: 60px;
 }
 
-/* 왼쪽 텍스트 영역 */
-.leftBox {
-  flex: 1;
-  max-width: 440px;
-}
-
-/* 키워드 버튼 */
 .keywordBox {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
   max-width: 380px;
   margin-top: 24px;
 }

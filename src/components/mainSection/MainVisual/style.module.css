@@ -46,8 +46,5 @@
   position: absolute;
   bottom: 40px;
   left: 100px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
   font-size: 16px;
 }

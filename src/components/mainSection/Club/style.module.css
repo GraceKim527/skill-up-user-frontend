@@ -5,44 +5,29 @@
   padding: 0 20px;
 }
 
-/* 헤더(제목 + 화살표) */
 .sectionHead {
   max-width: 1240px;
   margin: 0 auto 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 40px;
 }
 
-/* 타이틀 블록 */
-.titles {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
 .subTitle {
   font-size: 18px;
   font-weight: 500;
   color: #5a23ff;
   line-height: 1.4;
 }
+
 .title {
   font-size: 42px;
   font-weight: 500;
   color: #000;
   line-height: 1.3;
 }
+
 .titleSpan {
   font-weight: 700;
 }
 
-/* 화살표 그룹 */
-.arrowGroup {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
 .arrowBtn {
   width: 36px;
   height: 36px;
@@ -54,24 +39,31 @@
   background: #fff;
   cursor: pointer;
 }
+
 .arrowBtn svg {
   display: block;
 }
+
 .dark {
   background: #000;
   border-color: #000;
 }
+
 .dark svg path {
   stroke: #fff;
   fill: none;
 }
 
-/* 슬라이드 트랙 */
 .trackWrap {
   max-width: 1240px;
   margin: 0 auto;
 }
+
 .track {
+  overflow: hidden;
+}
+
+.trackInner {
   display: flex;
   gap: 24px;
   overflow-x: auto;
