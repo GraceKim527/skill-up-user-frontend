@@ -2,20 +2,31 @@
 
 "use client";
 
+import { useMemo } from "react";
+import { useAtomValue } from "jotai";
 import EventPageLayout from "@/components/events/EventPageLayout";
 import ConferenceFilterView from "@/components/events/filters/views/ConferenceFilterView";
-import { Event } from "@/types/event/event";
+import { Event } from "@/types/event";
+import { useEventList } from "@/hooks/useEventList";
+import { createEventSearchParamsAtom } from "@/components/events/filters/atoms/pageFilterAtoms";
 
 export default function ConferencePageLayout({
-  eventList,
+  initialEventList,
 }: {
-  eventList: Event[];
+  initialEventList: Event[];
 }) {
+  const searchParamsAtom = useMemo(
+    () => createEventSearchParamsAtom("conference"),
+    []
+  );
+  const searchParams = useAtomValue(searchParamsAtom);
+  const { data: eventList } = useEventList(searchParams, initialEventList);
+
   return (
     <EventPageLayout
       pageId="conference"
       title="컨퍼런스 · 세미나"
-      eventList={eventList}
+      eventList={eventList || []}
       FilterView={ConferenceFilterView}
       emptyUrl="/conference/create"
     />

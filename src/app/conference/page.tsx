@@ -1,14 +1,19 @@
 // src/app/conference/page.tsx
 
 import ConferencePageLayout from "./ConferencePageLayout";
-import { getMockEventList } from "@/mocks/eventListMock";
+import { getEventList } from "@/api/events";
 
 export default async function page() {
-  // 목업 데이터
-  const eventList = await getMockEventList();
+  // SSR: 초기 데이터 서버에서 로드
+  const initialEventList = await getEventList({
+    category: "CONFERENCE_SEMINAR",
+    sort: "latest",
+    page: 1,
+  });
+
   return (
     <div style={{ paddingTop: "6rem" }}>
-      <ConferencePageLayout eventList={eventList} />
+      <ConferencePageLayout initialEventList={initialEventList} />
     </div>
   );
 }
