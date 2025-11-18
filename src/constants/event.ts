@@ -20,3 +20,11 @@ export const EVENT_SORT_OPTIONS = {
 
 export type EventSortOption =
   (typeof EVENT_SORT_OPTIONS)[keyof typeof EVENT_SORT_OPTIONS];
+
+export const EVENT_STATUS = {
+  DRAFT: "DRAFT",
+  PUBLISHED: "PUBLISHED",
+  HIDDEN: "HIDDEN",
+} as const;
+
+export type EventStatus = (typeof EVENT_STATUS)[keyof typeof EVENT_STATUS];

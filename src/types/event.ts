@@ -1,29 +1,42 @@
 // src/types/event/event.ts
-import { EventCategory, EventSortOption } from "@/constants/event";
+import { EventCategory, EventSortOption, EventStatus } from "@/constants/event";
 
 export interface Event {
-  id: string;
+  id: number;
+  thumbnailUrl: string;
+  online: boolean;
+  locationText: string;
   title: string;
-  date: string;
-  place: string;
-  price?: string;
-  category: string;
-  url?: string;
-  image: string;
-  badgeLabel?: string;
+  scheduleText: string;
+  priceText: string;
+  d_dayLabel: string;
+  recommended: boolean;
+  ad: boolean;
+  bookmarked: boolean;
+  category: EventCategory;
+  recommendedRate: number;
 }
 
 export interface EventDetail {
-  id: string;
-  category: string;
+  id: number;
   title: string;
+  thumbnailUrl: string;
+  category: EventCategory;
+  eventStart: string;
+  eventEnd: string;
+  recruitStart: string;
+  recruitEnd: string;
+  isFree: boolean;
+  price: number;
+  isOnline: boolean;
+  locationText: string;
+  locationLink: string;
+  applyLink: string;
+  status: EventStatus;
+  contact: string;
   description: string;
-  date: string;
-  price: string;
-  place: string;
-  online: boolean;
-  phoneNumber: string;
-  image: string;
+  hashTags: string[];
+  targetRoles: string[];
 }
 
 // 행사 목록 조회 요청 타입

@@ -1,7 +1,7 @@
 // src/app/conference/[id]/page.tsx
 
 import ConferenceDetailLayout from "./ConferenceDetailLayout";
-import { eventDetailMock } from "@/mocks/eventDetailMock";
+import { getEventDetail } from "@/api/events";
 
 export default async function ConferenceDetailPage({
   params,
@@ -9,8 +9,10 @@ export default async function ConferenceDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const resolvedParams = await params;
-  const eventDetail = eventDetailMock.find(
-    (event) => event.id === resolvedParams.id
-  );
-  return <ConferenceDetailLayout eventDetail={eventDetail!} />;
+  const eventId = Number(resolvedParams.id);
+
+  // SSR: 초기 데이터 서버에서 로드
+  const initialEventDetail = await getEventDetail(eventId);
+
+  return <ConferenceDetailLayout initialEventDetail={initialEventDetail} />;
 }

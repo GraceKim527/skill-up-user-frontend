@@ -1,5 +1,7 @@
 // src/app/conference/[id]/ConferenceDetailLayout.tsx
 
+"use client";
+
 import styles from "./styles.module.css";
 import StickyApplySection from "@/components/events/detail/StickyApplySection";
 import EventInfoCard from "@/components/events/detail/EventInfoCard";
@@ -12,21 +14,29 @@ import EventCard from "@/components/common/EventCard";
 import Flex from "@/components/common/Flex";
 import { eventListMock } from "@/mocks/eventListMock";
 import { EventDetail } from "@/types/event";
+import { useEventDetail } from "@/hooks/useEventDetail";
+
 export default function ConferenceDetailLayout({
-  eventDetail,
+  initialEventDetail,
 }: {
-  eventDetail: EventDetail;
+  initialEventDetail: EventDetail;
 }) {
+  const { data: eventDetail } = useEventDetail(
+    initialEventDetail.id,
+    initialEventDetail
+  );
+
+  if (!eventDetail) return null;
   return (
     <Flex gap="1rem" className={styles.conferenceDetailLayout}>
       <StickyApplySection
         category={eventDetail.category}
         title={eventDetail.title}
         date={eventDetail.date}
-        place={eventDetail.place}
+        place={eventDetail.locationText}
         price={eventDetail.price}
-        phoneNumber={eventDetail.phoneNumber}
-        image={eventDetail.image}
+        phoneNumber={eventDetail.contact}
+        image={eventDetail.thumbnailUrl}
       />
       <Flex
         direction="column"
