@@ -63,8 +63,7 @@ export default function EventPageLayout({
 
   // 추천 이벤트 조회 - 검색 결과가 없을 때만 호출 (로딩 중이 아닐 때)
   const category = PAGE_CATEGORY_MAP[pageId];
-  const shouldFetchRecommended =
-    !isLoadingEventList && eventList.length === 0;
+  const shouldFetchRecommended = !isLoadingEventList && eventList.length === 0;
   const { data: recommendedEvents, isLoading: isLoadingRecommended } =
     useRecommendedEvents(category, shouldFetchRecommended);
 
@@ -115,9 +114,18 @@ export default function EventPageLayout({
       />
 
       <Flex direction="column" gap={6.25} style={{ width: "100%" }}>
-        {eventList.length === 0 ? (
+        {total > 0 && eventList.length === 0 ? (
+          // total은 있는데 현재 페이지에 데이터가 없는 경우 (페이지 범위 초과)
           <>
-            <EventEmpty title={title} url={emptyUrl} />
+            <EventEmpty
+              description={
+                <div style={{ textAlign: "center" }}>
+                  조건에 맞는 행사가 없어요. <br /> 조건을 다시 설정해보세요
+                </div>
+              }
+              url={emptyUrl}
+              buttonText="행사 등록하기"
+            />
             <Flex direction="column" gap={1}>
               <Flex align="center" justify="space-between">
                 <Text typography="head3_m_24" color="black" as="h3">
@@ -137,9 +145,51 @@ export default function EventPageLayout({
                     추천 행사를 불러오는 중...
                   </Text>
                 ) : recommendedEvents && recommendedEvents.length > 0 ? (
-                  recommendedEvents.slice(0, 3).map((event: Event) => (
-                    <EventCard key={event.id} size="medium" event={event} />
-                  ))
+                  recommendedEvents
+                    .slice(0, 3)
+                    .map((event: Event) => (
+                      <EventCard key={event.id} size="medium" event={event} />
+                    ))
+                ) : (
+                  <Text typography="body1_r_16" color="neutral-40">
+                    추천할 행사가 없습니다.
+                  </Text>
+                )}
+              </div>
+            </Flex>
+          </>
+        ) : eventList.length === 0 ? (
+          // total도 0이고 데이터도 없는 경우 (실제로 데이터가 없음)
+          <>
+            <EventEmpty
+              description={<>{title}에 등록된 행사가 없어요</>}
+              url={emptyUrl}
+              buttonText="행사 등록하기"
+            />
+            <Flex direction="column" gap={1}>
+              <Flex align="center" justify="space-between">
+                <Text typography="head3_m_24" color="black" as="h3">
+                  이런 행사는 어떠세요?
+                </Text>
+                <Button
+                  variant="textOnly"
+                  icon={<ChevronRightIcon />}
+                  size="medium"
+                >
+                  IT 행사 더보기
+                </Button>
+              </Flex>
+              <div className={styles.cardList}>
+                {isLoadingRecommended ? (
+                  <Text typography="body1_r_16" color="neutral-40">
+                    추천 행사를 불러오는 중...
+                  </Text>
+                ) : recommendedEvents && recommendedEvents.length > 0 ? (
+                  recommendedEvents
+                    .slice(0, 3)
+                    .map((event: Event) => (
+                      <EventCard key={event.id} size="medium" event={event} />
+                    ))
                 ) : (
                   <Text typography="body1_r_16" color="neutral-40">
                     추천할 행사가 없습니다.
@@ -149,6 +199,7 @@ export default function EventPageLayout({
             </Flex>
           </>
         ) : (
+          // 데이터가 있는 경우
           <Flex direction="column" gap={6.25} style={{ width: "100%" }}>
             <div className={styles.cardList}>
               {paginatedEvents.map((item) => (
