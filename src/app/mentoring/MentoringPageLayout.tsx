@@ -23,17 +23,21 @@ export default function MentoringPageLayout({
   );
   const searchParams = useAtomValue(searchParamsAtom);
 
-  const { data: eventList, isLoading } = useEventList(
+  const { data, isLoading } = useEventList(
     searchParams,
     initialEventList,
     initialParams
   );
 
+  const eventList = data?.homeEventResponseList || [];
+  const total = data?.total || 0;
+
   return (
     <EventPageLayout
       pageId="mentoring"
       title="네트워킹 · 멘토링"
-      eventList={eventList || []}
+      eventList={eventList}
+      total={total}
       FilterView={MentoringFilterView}
       emptyUrl="/conference/create"
       isLoadingEventList={isLoading}

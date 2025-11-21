@@ -23,17 +23,21 @@ export default function BootcampPageLayout({
   );
   const searchParams = useAtomValue(searchParamsAtom);
 
-  const { data: eventList, isLoading } = useEventList(
+  const { data, isLoading } = useEventList(
     searchParams,
     initialEventList,
     initialParams
   );
 
+  const eventList = data?.homeEventResponseList || [];
+  const total = data?.total || 0;
+
   return (
     <EventPageLayout
       pageId="bootcamp"
       title="부트캠프"
-      eventList={eventList || []}
+      eventList={eventList}
+      total={total}
       FilterView={BootcampFilterView}
       emptyUrl="/bootcamp/create"
       isLoadingEventList={isLoading}

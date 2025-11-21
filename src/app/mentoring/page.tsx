@@ -57,7 +57,8 @@ export default async function MentoringPage({ searchParams }: PageProps) {
   }
 
   // SSR: 초기 데이터 서버에서 로드
-  const initialEventList = await getEventList(apiParams);
+  const initialEventList =
+    (await getEventList(apiParams))?.homeEventResponseList || [];
 
   return (
     <div style={{ paddingTop: "6rem" }}>

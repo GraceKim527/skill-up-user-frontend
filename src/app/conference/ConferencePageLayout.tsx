@@ -23,17 +23,21 @@ export default function ConferencePageLayout({
   );
   const searchParams = useAtomValue(searchParamsAtom);
 
-  const { data: eventList, isLoading } = useEventList(
+  const { data, isLoading } = useEventList(
     searchParams,
     initialEventList,
     initialParams
   );
 
+  const eventList = data?.homeEventResponseList || [];
+  const total = data?.total || 0;
+
   return (
     <EventPageLayout
       pageId="conference"
       title="컨퍼런스 · 세미나"
-      eventList={eventList || []}
+      eventList={eventList}
+      total={total}
       FilterView={ConferenceFilterView}
       emptyUrl="/conference/create"
       isLoadingEventList={isLoading}

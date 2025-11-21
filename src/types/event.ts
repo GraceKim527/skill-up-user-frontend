@@ -52,3 +52,9 @@ export interface EventSearchParams {
   validDateRange?: boolean;
   validSort?: boolean;
 }
+
+// 행사 목록 조회 응답 타입
+export interface EventListResponse {
+  total: number;
+  homeEventResponseList: Event[];
+}

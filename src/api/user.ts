@@ -1,6 +1,6 @@
 // src/api/user/user.ts
 
-import instance from "@/api/instance";
+import instance from "@/api/tokenInstance";
 
 // 테스트 로그인 API
 export const getTestLogin = async () => {

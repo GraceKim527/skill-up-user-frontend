@@ -23,17 +23,21 @@ export default function HackathonPageLayout({
   );
   const searchParams = useAtomValue(searchParamsAtom);
 
-  const { data: eventList, isLoading } = useEventList(
+  const { data, isLoading } = useEventList(
     searchParams,
     initialEventList,
     initialParams
   );
 
+  const eventList = data?.homeEventResponseList || [];
+  const total = data?.total || 0;
+
   return (
     <EventPageLayout
       pageId="hackathon"
       title="동아리 · 해커톤 · 공모전"
-      eventList={eventList || []}
+      eventList={eventList}
+      total={total}
       FilterView={HackathonFilterView}
       emptyUrl="/hackathon/create"
       isLoadingEventList={isLoading}

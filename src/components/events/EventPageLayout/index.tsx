@@ -27,6 +27,7 @@ interface EventPageLayoutProps {
   pageId: "bootcamp" | "conference" | "hackathon" | "mentoring";
   title: string;
   eventList: Event[];
+  total: number;
   FilterView: React.ComponentType;
   emptyUrl: string;
   isLoadingEventList?: boolean;
@@ -36,6 +37,7 @@ export default function EventPageLayout({
   pageId,
   title,
   eventList,
+  total,
   FilterView,
   emptyUrl,
   isLoadingEventList = false,
@@ -66,7 +68,7 @@ export default function EventPageLayout({
   const { data: recommendedEvents, isLoading: isLoadingRecommended } =
     useRecommendedEvents(category, shouldFetchRecommended);
 
-  const totalPages = Math.ceil(eventList.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
   const pageOptions = useMemo(
     () => generatePageOptions(totalPages),
     [totalPages]
@@ -92,7 +94,7 @@ export default function EventPageLayout({
     >
       <EventPageHeader
         title={title}
-        count={eventList.length}
+        count={total}
         selectedRoles={selectedRoles}
         onRolesChange={setSelectedRoles}
         onOfflineFilter={onOfflineFilter}

@@ -62,6 +62,21 @@ export const PAGE_CATEGORY_MAP: Record<PageId, EventSearchParams["category"]> =
     mentoring: "NETWORKING_MENTORING",
   };
 
+// UI 역할명을 API 역할명으로 변환하는 맵
+const ROLE_TO_API_MAP: Record<string, string> = {
+  기획: "기획자",
+  디자인: "디자이너",
+  개발: "개발자",
+  AI: "AI 개발자",
+};
+
+// UI 역할명을 API 역할명으로 변환하는 함수
+const convertRolesToApi = (roles: RoleOption[]): string[] => {
+  return roles
+    .filter((role) => role !== "전체")
+    .map((role) => ROLE_TO_API_MAP[role] || role);
+};
+
 // Jotai 필터 상태를 API params로 변환하는 derived atom 생성
 export const createEventSearchParamsAtom = (pageId: PageId) => {
   const atoms = pageFilterAtomsMap[pageId];
@@ -83,7 +98,7 @@ export const createEventSearchParamsAtom = (pageId: PageId) => {
 
     // 선택 필드들 - 값이 있을 때만 추가
     if (selectedRoles.length > 0 && !selectedRoles.includes("전체")) {
-      params.targetRoles = selectedRoles;
+      params.targetRoles = convertRolesToApi(selectedRoles);
     }
 
     if (onOfflineFilter === "online") {
