@@ -2,7 +2,7 @@
 
 .container {
   max-width: 1240px;
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 12rem);
   box-sizing: border-box;
   margin: 0 auto;
   display: flex;
