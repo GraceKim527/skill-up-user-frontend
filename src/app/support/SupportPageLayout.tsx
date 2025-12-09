@@ -7,6 +7,7 @@ import Text from "@/components/common/Text";
 import Accordion from "@/components/common/Accordion";
 import Flex from "@/components/common/Flex";
 import Pagination from "@/components/common/Pagination";
+import Button from "@/components/common/Button";
 import { DropdownOption } from "@/components/common/Dropdown";
 import { CustomerCenterInquiry } from "@/types/user";
 
@@ -18,7 +19,6 @@ interface SupportPageLayoutProps {
 }
 
 export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
-  // SSR로 받은 데이터 사용
   const faqs = faqData && faqData.length > 0 ? faqData : [];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +26,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
     label: "1",
     value: "1",
   });
+  const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
 
   const totalPages = Math.ceil(faqs.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -53,6 +54,11 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleWithdrawalClick = () => {
+    setIsWithdrawalModalOpen(true);
+    // TODO: 탈퇴하기 모달 구현 예정
+  };
+
   return (
     <Flex direction="column" gap={4} className={styles.content}>
       <Text typography="head2_sb_30" color="black" as="h1">
@@ -61,11 +67,17 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
 
       <div className={styles.faqSection}>
         <Accordion
-          items={currentFAQs.map((faq) => ({
+          items={currentFAQs.map((faq, index) => ({
             id: faq.question,
             question: faq.question,
             answerTitle: faq.answerTitle,
             answerContent: faq.answerContent,
+            extraButton:
+              index === 0 ? (
+                <Button variant="outlined" size="medium" onClick={handleWithdrawalClick}>
+                  탈퇴하기
+                </Button>
+              ) : undefined,
           }))}
           defaultOpenId={currentFAQs[0]?.question}
         />

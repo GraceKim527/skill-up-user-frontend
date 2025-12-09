@@ -13,6 +13,7 @@ interface AccordionItemProps {
   answerContent: string;
   isOpen?: boolean;
   onToggle?: (id: string) => void;
+  extraButton?: React.ReactNode;
 }
 
 export function AccordionItem({
@@ -22,6 +23,7 @@ export function AccordionItem({
   answerContent,
   isOpen = false,
   onToggle,
+  extraButton,
 }: AccordionItemProps) {
   return (
     <div className={`${styles.item} ${isOpen ? styles.open : ""}`}>
@@ -78,6 +80,7 @@ export function AccordionItem({
             <Text typography="body2_r_14" color="neutral-30">
               {answerContent}
             </Text>
+            {extraButton && <div style={{ marginTop: "0.75rem" }}>{extraButton}</div>}
           </Flex>
         </Flex>
       )}
@@ -91,6 +94,7 @@ interface AccordionProps {
     question: string;
     answerTitle: string;
     answerContent: string;
+    extraButton?: React.ReactNode;
   }>;
   defaultOpenId?: string;
   allowMultiple?: boolean;
@@ -126,6 +130,7 @@ export default function Accordion({
           answerContent={item.answerContent}
           isOpen={openIds.includes(item.id)}
           onToggle={handleToggle}
+          extraButton={item.extraButton}
         />
       ))}
     </Flex>
