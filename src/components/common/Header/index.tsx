@@ -209,7 +209,7 @@ export default function Header({ variant }: HeaderProps) {
         isOpen={isAlertOpen}
         toggle={toggleAlert}
         title="로그아웃 하시겠습니까?"
-        message="로그아웃하면 일부 기능을 이용할 수 없습니다."
+        message={<>로그아웃하면 일부 기능을 이용할 수 없습니다.</>}
         onConfirm={handleLogout}
       />
     </header>

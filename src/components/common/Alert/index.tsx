@@ -10,7 +10,7 @@ interface AlertProps {
   isOpen: boolean;
   toggle: () => void;
   title: string;
-  message: string;
+  message: React.ReactNode;
   onConfirm: () => void;
 }
 
