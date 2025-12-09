@@ -57,17 +57,15 @@ export const useTestLogin = () => {
   });
 };
 
-// 고객센터 문의 조회 Hook
+// 고객센터 FAQ 조회 Hook (공개 API)
 export const useCustomerCenterInquiry = () => {
-  const { isAuthenticated } = useAuth();
-
   return useQuery({
     queryKey: ["customerCenterInquiry"],
     queryFn: async () => {
       return await getCustomerCenterInquiry();
     },
-    enabled: isAuthenticated,
     retry: false,
+    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
   });
 };
 
