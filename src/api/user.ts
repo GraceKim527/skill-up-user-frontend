@@ -2,8 +2,7 @@
 
 import tokenInstance from "@/api/tokenInstance";
 import instance from "@/api/instance";
-import { UserProfile } from "@/types/user";
-import { EventCategory } from "@/constants/event";
+import { UserProfile, UserBookmarks } from "@/types/user";
 
 // 테스트 로그인 API
 export const getTestLogin = async () => {
@@ -53,13 +52,11 @@ export const getUserEmailAndName = async () => {
 
 // 유저 북마크 조회
 export const getUserBookmarks = async (
-  category: EventCategory,
   sort: "deadline" | "latest",
   page: number
-) => {
+): Promise<UserBookmarks> => {
   const response = await tokenInstance.get("/user/my-page/bookmark", {
     params: {
-      category,
       sort,
       page,
     },

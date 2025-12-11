@@ -13,8 +13,7 @@ import {
 import { useAuth } from "./useAuth";
 import { useSetAtom } from "jotai";
 import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
-import { UserProfile } from "@/types/user";
-import { EventCategory } from "@/constants/event";
+import { UserProfile, UserBookmarks } from "@/types/user";
 import { RoleName } from "@/constants/role";
 
 // 유저 데이터 조회 Hook
@@ -107,17 +106,13 @@ export const useUserEmailAndName = () => {
 };
 
 // 유저 북마크 조회 Hook
-export const useUserBookmarks = (
-  category: EventCategory,
-  sort: "deadline" | "latest",
-  page: number
-) => {
+export const useUserBookmarks = (sort: "deadline" | "latest", page: number) => {
   const { isAuthenticated } = useAuth();
 
-  return useQuery({
-    queryKey: ["userBookmarks", category, sort, page],
+  return useQuery<UserBookmarks>({
+    queryKey: ["userBookmarks", sort, page],
     queryFn: async () => {
-      return await getUserBookmarks(category, sort, page);
+      return await getUserBookmarks(sort, page);
     },
     enabled: isAuthenticated,
     retry: false,

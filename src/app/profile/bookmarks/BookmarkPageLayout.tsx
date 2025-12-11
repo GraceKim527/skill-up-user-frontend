@@ -1,4 +1,4 @@
-// src/app/bookmarks/BookmarkPageLayout.tsx
+// src/app/profile/bookmarks/BookmarkPageLayout.tsx
 
 "use client";
 
@@ -6,68 +6,119 @@ import EventCard from "@/components/common/EventCard";
 import styles from "./styles.module.css";
 import ProfileCard from "@/components/myPage/bookmarks/ProfileCard";
 import Pagination from "@/components/common/Pagination";
-import Dropdown, { DropdownOption } from "@/components/common/Dropdown";
+import Dropdown from "@/components/common/Dropdown";
 import TabBar from "@/components/common/TabBar";
-import { Event } from "@/types/event";
 import Flex from "@/components/common/Flex";
+import Skeleton from "@/components/common/Skeleton";
+import BookmarkEmpty from "@/components/myPage/bookmarks/BookmarkEmpty";
+import { useBookmarkPage } from "@/hooks/useBookmarkPage";
 
-const sortOptions: DropdownOption[] = [
-  { label: "마감임박순", value: "deadline" },
-  { label: "최근 북마크순", value: "recent" },
-];
+// BookmarkEmpty 컴포넌트를 반환하는 헬퍼 함수
+const renderEmptyState = () => (
+  <BookmarkEmpty
+    title="저장한 행사가 없습니다"
+    description={
+      <>
+        관심 있는 행사를 북마크하여 <br />
+        나만의 행사 목록을 만들어보세요
+      </>
+    }
+    url="/conference"
+    buttonText="행사 둘러보기"
+  />
+);
 
-export default function BookmarkPageLayout({
-  eventList,
-}: {
-  eventList: Event[];
-}) {
+export default function BookmarkPageLayout() {
+  const {
+    bookmarkData,
+    isLoading,
+    error,
+    activeTabIndex,
+    selectedSort,
+    currentPage,
+    selectedPageOption,
+    eventList,
+    totalPages,
+    pageOptions,
+    sortOptions,
+    handleTabChange,
+    handleSortChange,
+    handlePageChange,
+    handleDropdownSelect,
+  } = useBookmarkPage();
+
+  if (isLoading) {
+    return (
+      <Flex gap={1} className={styles.container}>
+        <Skeleton width="18.75rem" height="15rem" />
+        <Flex direction="column" gap={6.25} style={{ flex: 1 }}>
+          <Skeleton width="100%" height="3rem" />
+          <Skeleton width="100%" height="20rem" />
+        </Flex>
+      </Flex>
+    );
+  }
+
+  if (error) {
+    return (
+      <Flex gap={1} className={styles.container}>
+        {renderEmptyState()}
+      </Flex>
+    );
+  }
+
   return (
     <Flex gap={1} className={styles.container}>
-      {/* 목업 데이터 */}
       <ProfileCard
-        name="홍길동"
-        email="skillup@gmail.com"
-        job="개발자"
-        bookmarkCount={3}
+        name={bookmarkData?.name || ""}
+        email={bookmarkData?.email || ""}
+        job={bookmarkData?.role || ""}
+        bookmarkCount={bookmarkData?.bookmarkCount || 0}
       />
-      <Flex direction="column" gap={6.25}>
+      <Flex direction="column" gap={6.25} className={styles.cardListContainer}>
         <Flex direction="column" gap={1.25}>
           <Flex align="center" justify="space-between">
             <TabBar
               tabs={[
-                { label: "진행 중", count: 10 },
-                { label: "종료", count: 10 },
+                {
+                  label: "진행 중",
+                  count: bookmarkData?.recruitingEvents.length || 0,
+                },
+                {
+                  label: "종료",
+                  count: bookmarkData?.closedEvents.length || 0,
+                },
               ]}
-              activeIndex={0}
-              onChange={(index) => {
-                console.log(index);
-              }}
+              activeIndex={activeTabIndex}
+              onChange={handleTabChange}
             />
             <Dropdown
               options={sortOptions}
-              selected={sortOptions[0]}
-              onSelect={(option) => {
-                console.log(option);
-              }}
+              selected={selectedSort}
+              onSelect={handleSortChange}
             />
           </Flex>
-          <div className={styles.cardList}>
-            {eventList.map((event) => (
-              <EventCard key={event.id} size="medium" event={event} />
-            ))}
-          </div>
+          {eventList.length > 0 ? (
+            <div className={styles.cardList}>
+              {eventList.map((event) => (
+                <EventCard key={event.id} size="medium" event={event} />
+              ))}
+            </div>
+          ) : (
+            renderEmptyState()
+          )}
         </Flex>
-        <Pagination
-          currentPage={1}
-          totalPages={10}
-          onPageChange={() => {}}
-          options={[]}
-          selected={{ label: "1", value: "1" }}
-          onSelect={(option) => {
-            console.log(option);
-          }}
-          goToPage={false}
-        />
+        {totalPages > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            options={pageOptions}
+            selected={selectedPageOption}
+            onSelect={handleDropdownSelect}
+            goToPage={false}
+          />
+        )}
       </Flex>
     </Flex>
   );
