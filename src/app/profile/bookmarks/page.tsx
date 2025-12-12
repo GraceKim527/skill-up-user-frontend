@@ -1,13 +1,13 @@
-// src/app/my/bookmarks/page.tsx
+// src/app/profile/bookmarks/page.tsx
+
+"use client";
 
 import BookmarkPageLayout from "./BookmarkPageLayout";
-import { getMockEventList } from "@/mocks/eventListMock";
 
-export default async function BookmarksPage() {
-  const eventList = await getMockEventList();
+export default function BookmarksPage() {
   return (
     <div style={{ paddingTop: "6rem" }}>
-      <BookmarkPageLayout eventList={eventList} />
+      <BookmarkPageLayout />
     </div>
   );
 }

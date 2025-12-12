@@ -22,6 +22,7 @@ import { getSocialLogin } from "@/api/auth";
 import { useAtomValue } from "jotai";
 import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
 import { useUserEmailAndName } from "@/hooks/useUser";
+import CautionIcon from "@/assets/icons/CautionIcon";
 
 interface HeaderProps {
   variant: "main" | "sub";
@@ -206,6 +207,7 @@ export default function Header({ variant }: HeaderProps) {
       </Modal>
 
       <Alert
+        icon={<CautionIcon color="var(--Primary-strong)" />}
         isOpen={isAlertOpen}
         toggle={toggleAlert}
         title="로그아웃 하시겠습니까?"
