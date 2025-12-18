@@ -3,8 +3,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.css";
-import Image from "next/image";
-import ChevronDownIcon from "@/assets/svg/chevronDownIcon.svg";
+import ChevronDownIcon from "@/assets/icons/ChevronDownIcon";
 import Text from "../Text";
 
 export interface DropdownOption {
@@ -68,7 +67,7 @@ export default function Dropdown({
         <Text typography="body1_r_16" color="neutral-20">
           {buttonLabel || selected.label}
         </Text>
-        <Image src={ChevronDownIcon} alt="chevron down" />
+        <ChevronDownIcon />
       </button>
       {isOpen && (
         <ul className={styles.dropdownList}>
