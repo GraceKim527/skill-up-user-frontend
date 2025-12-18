@@ -1,3 +1,4 @@
+"use client";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";
 import Button from "@/components/common/Button";

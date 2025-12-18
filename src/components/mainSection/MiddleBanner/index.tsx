@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";

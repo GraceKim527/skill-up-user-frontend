@@ -1,4 +1,5 @@
 // 신청 마감 행사
+"use client";
 import Flex from "@/components/common/Flex";
 import EventCard from "@/components/common/EventCard";
 import globalStyles from "../style.module.css";

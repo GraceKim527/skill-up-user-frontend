@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Flex from "@/components/common/Flex";
@@ -11,6 +12,7 @@ export default function MainVisual() {
       <div className={styles.visualSlide}>
         <Image src={Banner} alt="비주얼 배너" fill priority />
 
+        {/* 추후 추가 */}
         <Flex align="center" gap="12px" className={styles.paging}>
           <button>&lt;</button>
           <span className={styles.current}>1</span>/<span>3</span>

@@ -1,4 +1,5 @@
 // 지금 주목받고 있어요
+"use client";
 // import { useState } from "react";
 import Flex from "@/components/common/Flex";
 import EventCard from "@/components/common/EventCard";

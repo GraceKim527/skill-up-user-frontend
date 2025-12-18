@@ -1,4 +1,5 @@
 // 관심있어하실 행사
+"use client";
 import Flex from "@/components/common/Flex";
 import globalStyles from "../style.module.css";
 import localStyles from "./style.module.css";

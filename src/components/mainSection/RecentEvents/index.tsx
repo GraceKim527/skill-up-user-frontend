@@ -1,4 +1,5 @@
 // 최근 본 행사
+"use client";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";
 import EventCard from "@/components/common/EventCard";

@@ -1,3 +1,4 @@
+"use client";
 import { useRef } from "react";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";

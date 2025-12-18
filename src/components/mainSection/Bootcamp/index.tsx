@@ -1,3 +1,4 @@
+"use client";
 import EventCard from "@/components/common/EventCard";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";

@@ -1,4 +1,5 @@
 // 추천 콘텐츠
+"use client";
 import Flex from "@/components/common/Flex";
 import styles from "./style.module.css";
 import TabMenu from "@/components/common/Tab";
