@@ -23,7 +23,7 @@
   transition: all 0.25s ease;
 }
 
-.menuItem:hover {
+.menuItem:hover .menuItem:active {
   color: var(--Primary-strong);
 }
 
@@ -32,7 +32,12 @@
   transition: color 0.25s ease;
 }
 
-.menuItem:hover .icon {
+.menuItem:hover .icon,
+.menuItem:active .icon {
+  color: var(--Primary-strong);
+}
+
+.menuItem.active .icon {
   color: var(--Primary-strong);
 }
 

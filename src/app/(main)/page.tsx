@@ -1,5 +1,7 @@
 import MainVisual from "@/components/mainSection/MainVisual";
-import RecommendEvent from "@/components/mainSection/RecommendEvent";
+import RecommendNow from "@/components/mainSection/RecommendNow";
+import RecommendInterest from "@/components/mainSection/RecommendInterest";
+import RecommendDeadline from "@/components/mainSection/RecommendDeadline";
 import RecentEvents from "@/components/mainSection/RecentEvents";
 import MiddleBanner from "@/components/mainSection/MiddleBanner";
 import Club from "@/components/mainSection/Club";
@@ -16,8 +18,12 @@ export default function Home() {
 
       {/* main */}
       <main id="container">
-        {/* 추천 행사 */}
-        <RecommendEvent />
+        {/* 추천 행사 - 지금 주목받고 있어요 */}
+        <RecommendNow />
+        {/* 추천 행사 - 관심있어하실 행사 */}
+        <RecommendInterest />
+        {/* 추천 행사 - 신청 마감 행사 */}
+        <RecommendDeadline />
         {/* 추천 컨텐츠 */}
         <RecommendContents />
         {/* 미들배너 */}

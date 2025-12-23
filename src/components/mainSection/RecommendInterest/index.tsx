@@ -1,8 +1,7 @@
 // 관심있어하실 행사
 "use client";
 import Flex from "@/components/common/Flex";
-import globalStyles from "../style.module.css";
-import localStyles from "./style.module.css";
+import styles from "./styles.module.css";
 import { FaRegBookmark } from "react-icons/fa";
 import Button from "@/components/common/Button";
 
@@ -18,46 +17,46 @@ export default function RecommendInterest() {
   ];
 
   return (
-    <section className={localStyles.interestSection}>
+    <section className={styles.interestSection}>
       <Flex
         justify="space-between"
         align="flex-start"
         gap="60px"
-        className={localStyles.inner}
+        className={styles.inner}
       >
         <Flex direction="column" style={{ flex: 1, maxWidth: "440px" }}>
-          <p className={globalStyles.subEng}>
+          <p className={styles.subEng}>
             HERE&apos;S AN EVENT YOU MIGHT BE INTERESTED IN
           </p>
-          <h2 className={globalStyles.interestTitle}>
-            <span className={globalStyles.interestSpan}>관심있어하실</span>
+          <h2 className={styles.interestTitle}>
+            <span className={styles.interestSpan}>관심있어하실</span>
             행사를
             <br /> 골라왔어요
           </h2>
 
-          <Flex wrap="wrap" gap="12px" className={localStyles.keywordBox}>
+          <Flex wrap="wrap" gap="12px" className={styles.keywordBox}>
             {keywords.map((kw, i) => (
-              <button key={i} className={localStyles.keywordBtn}>
+              <button key={i} className={styles.keywordBtn}>
                 {kw}
               </button>
             ))}
           </Flex>
         </Flex>
 
-        <div className={localStyles.cardGrid}>
+        <div className={styles.cardGrid}>
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className={localStyles.card}>
-              <div className={localStyles.imgBox}>
+            <div key={i} className={styles.card}>
+              <div className={styles.imgBox}>
                 <Button
                   variant="secondary"
                   opacity={0.6}
                   icon={<FaRegBookmark />}
-                  className={localStyles.bookmarkBtn}
+                  className={styles.bookmarkBtn}
                 />
               </div>
               <Flex direction="column">
-                <h3 className={localStyles.metaTitle}>메인타이틀</h3>
-                <p className={localStyles.metaDesc}>
+                <h3 className={styles.metaTitle}>메인타이틀</h3>
+                <p className={styles.metaDesc}>
                   서브타이틀이 들어가면 좋겠어요
                 </p>
               </Flex>

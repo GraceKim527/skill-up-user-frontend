@@ -20,9 +20,15 @@ interface EventCardProps {
   size: "small" | "medium" | "large" | "block";
   event: Event;
   block?: boolean;
+  className?: string;
 }
 
-export default function EventCard({ size, event, block }: EventCardProps) {
+export default function EventCard({
+  size,
+  event,
+  block,
+  className,
+}: EventCardProps) {
   const {
     id,
     title,
@@ -59,7 +65,7 @@ export default function EventCard({ size, event, block }: EventCardProps) {
           : size === "medium"
           ? styles.medium
           : size === "small"
-      } ${block ? styles.block : ""}`}
+      } ${block ? styles.block : ""} ${className}`}
     >
       <div className={styles.eventCardImage}>
         {/* 추후 바뀔 수도 있음 */}
