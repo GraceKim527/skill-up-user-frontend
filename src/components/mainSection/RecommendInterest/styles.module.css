@@ -1,24 +1,19 @@
 .interestSection {
-  background: #212025;
-  padding: 100px 0;
+  background: linear-gradient(180deg, #212025 0%, #353339 100%);
+  padding: 5rem 6.25rem;
 }
 
 .inner {
-  max-width: 1240px;
+  max-width: 77.5rem;
   margin: 0 auto;
-}
-
-.keywordBox {
-  max-width: 380px;
-  margin-top: 24px;
 }
 
 .keywordBtn {
   background: #2c2c36;
-  border: 1px solid #737373;
-  font-size: 13px;
-  padding: 6px 16px;
-  border-radius: 4px;
+  border: 1px solid var(--Neutral-50);
+  font-size: 0.8125rem;
+  padding: 0.375rem 1rem;
+  border-radius: 0.25rem;
   cursor: pointer;
   transition: background 0.2s;
   color: #c4c4c4;
@@ -26,63 +21,56 @@
   line-height: 1.4;
 }
 
-
-/* 오른쪽 카드 2x2 */
 .cardGrid {
-  flex: 1.4;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.card {
-  width: 350px;
-  height: 262px;
-  overflow: hidden;
-  position: relative;
+  gap: 1.25rem 0.75rem;
 }
 
 .imgBox {
-  background: #fff;
-  width: 350px;
-  height: 200px;
-  gap: 10px;
+  background: var(--Common-white);
+  width: 21.875rem;
+  height: 12.5rem;
+  border-radius: 0.25rem;
   position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 0.25rem;
+  }
 }
 
 .bookmarkBtn {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   background: rgba(0, 0, 0, 0.6);
 }
 
 .bookmarkBtn svg {
-  width: 15.17px;
-  height: 18.42px;
+  width: 0.95rem;
+  height: 1.15rem;
   color: #fff;
 }
 
 .textBox {
-  margin-top: 5px;
+  margin-top: 0.3125rem;
 }
 
-.metaTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color: #e6e6e6;
-  line-height: 1.4;
-}
-
-.metaDesc {
-  font-size: 16px;
-  font-weight: 400;
-  color: #e6e6e6;
-  line-height: 1.5;
+.metaText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  align-self: stretch;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

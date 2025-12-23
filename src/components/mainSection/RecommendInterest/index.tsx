@@ -1,9 +1,13 @@
+// src/components/mainSection/RecommendInterest/index.tsx
+
 // 관심있어하실 행사
 "use client";
 import Flex from "@/components/common/Flex";
 import styles from "./styles.module.css";
 import { FaRegBookmark } from "react-icons/fa";
 import Button from "@/components/common/Button";
+import Text from "@/components/common/Text";
+import LoginImage from "@/assets/images/loginImg.png";
 
 export default function RecommendInterest() {
   const keywords = [
@@ -21,22 +25,37 @@ export default function RecommendInterest() {
       <Flex
         justify="space-between"
         align="flex-start"
-        gap="60px"
+        gap="3.75rem"
         className={styles.inner}
       >
-        <Flex direction="column" style={{ flex: 1, maxWidth: "440px" }}>
-          <p className={styles.subEng}>
-            HERE&apos;S AN EVENT YOU MIGHT BE INTERESTED IN
-          </p>
-          <h2 className={styles.interestTitle}>
-            <span className={styles.interestSpan}>관심있어하실</span>
-            행사를
-            <br /> 골라왔어요
-          </h2>
+        <Flex direction="column" gap="1.5rem">
+          <Flex direction="column" gap="1rem">
+            <Text typography="label1_r_18" color="neutral-95">
+              HERE&apos;S AN EVENT YOU MIGHT BE INTERESTED IN
+            </Text>
+            <Flex direction="column">
+              <Flex gap="0.5rem">
+                <Text typography="head5_sb_42" color="white">
+                  관심있어하실
+                </Text>
+                <Text typography="head1_m_42" color="white">
+                  행사를
+                </Text>
+              </Flex>
+              <Text typography="head1_m_42" color="white">
+                골라왔어요
+              </Text>
+            </Flex>
+          </Flex>
 
-          <Flex wrap="wrap" gap="12px" className={styles.keywordBox}>
+          <Flex wrap="wrap" gap="0.5rem" className={styles.keywordBox}>
             {keywords.map((kw, i) => (
-              <button key={i} className={styles.keywordBtn}>
+              <button
+                key={i}
+                type="button"
+                className={styles.keywordBtn}
+                aria-label={`${kw} 카테고리 필터`}
+              >
                 {kw}
               </button>
             ))}
@@ -45,8 +64,9 @@ export default function RecommendInterest() {
 
         <div className={styles.cardGrid}>
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className={styles.card}>
+            <Flex key={i} direction="column" gap="0.5rem">
               <div className={styles.imgBox}>
+                <img src={LoginImage.src.toString()} alt="Login Image" />
                 <Button
                   variant="secondary"
                   opacity={0.6}
@@ -55,12 +75,22 @@ export default function RecommendInterest() {
                 />
               </div>
               <Flex direction="column">
-                <h3 className={styles.metaTitle}>메인타이틀</h3>
-                <p className={styles.metaDesc}>
+                <Text
+                  typography="head4_sb_20"
+                  color="white"
+                  className={styles.metaText}
+                >
+                  메인타이틀
+                </Text>
+                <Text
+                  typography="body1_r_16"
+                  color="neutral-95"
+                  className={styles.metaText}
+                >
                   서브타이틀이 들어가면 좋겠어요
-                </p>
+                </Text>
               </Flex>
-            </div>
+            </Flex>
           ))}
         </div>
       </Flex>

@@ -16,12 +16,22 @@ import Text from "@/components/common/Text";
 export default function RecommendNow() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  const getCardWidth = () => {
+    if (!carouselRef.current) return 0;
+    const firstCard = carouselRef.current.querySelector(
+      `.${styles.carouselItem}`
+    ) as HTMLElement;
+    if (!firstCard) return 0;
+    const cardWidth = firstCard.offsetWidth;
+    const gap = 12; // 0.75rem = 12px
+    return cardWidth + gap;
+  };
+
   const prev = () => {
     if (carouselRef.current) {
-      const cardWidth =
-        carouselRef.current.scrollWidth / eventListMock.length + 0.75;
+      const scrollAmount = getCardWidth();
       carouselRef.current.scrollBy({
-        left: -cardWidth,
+        left: -scrollAmount,
         behavior: "smooth",
       });
     }
@@ -29,9 +39,9 @@ export default function RecommendNow() {
 
   const next = () => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.scrollWidth / eventListMock.length;
+      const scrollAmount = getCardWidth();
       carouselRef.current.scrollBy({
-        left: cardWidth,
+        left: scrollAmount,
         behavior: "smooth",
       });
     }
@@ -82,12 +92,12 @@ export default function RecommendNow() {
           justify="space-between"
           className={styles.bottomRow}
         >
-          <Flex align="center" gap="20px">
+          <Flex align="center" gap="1.25rem">
             <button
               type="button"
               className={`${styles.arrowBtn} ${styles.lightBtn}`}
               onClick={prev}
-              aria-label="이전"
+              aria-label="이전 페이지"
             >
               <ChevronLeftIcon />
             </button>
@@ -95,7 +105,7 @@ export default function RecommendNow() {
               type="button"
               className={`${styles.arrowBtn} ${styles.darkBtn}`}
               onClick={next}
-              aria-label="다음"
+              aria-label="다음 페이지"
             >
               <ChevronRightIcon color="#fff" />
             </button>
