@@ -1,58 +1,102 @@
-/* 
-  작성자 : 김재혁
-  최초 작성일 : 2025-08-21
-  최종 수정일 : 2025-10-25
-*/
+// src/components/common/Footer/index.tsx
 
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./style.module.css";
+import Flex from "@/components/common/Flex";
+import styles from "./styles.module.css";
 
 import SkillUpLogo from "@/assets/svg/skillUp_white.svg";
-import { Search, Instagram, Mail } from "lucide-react";
+import SearchIcon from "@/assets/icons/SearchIcon";
+import InstagramIcon from "@/assets/icons/InstagramIcon";
+import MailIcon from "@/assets/icons/MailIcon";
+import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
+import Button from "../Button";
+import Text from "../Text";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={styles.inner}>
+      <Flex justify="space-between" align="flex-start" className={styles.inner}>
         {/* 왼쪽 영역 */}
-        <div className={styles.leftBlock}>
-          <div className={styles.topRow}>
+        <Flex direction="column" gap="0.625rem">
+          <Flex align="center" gap="1.25rem">
             <div className={styles.logoWrap}>
-              <Image src={SkillUpLogo} alt="Skill Up 로고" width={140} height={19.76} />
+              <Image
+                src={SkillUpLogo}
+                alt="Skill Up 로고"
+                width={140}
+                height={19.76}
+              />
             </div>
-            <div className={styles.policyGroup}>
+            <Flex align="center" gap="0.625rem" className={styles.policyGroup}>
               <Link href="/faq">자주 묻는 질문</Link>
               <Link href="/terms">서비스이용약관</Link>
               <Link href="/privacy">개인정보처리방침</Link>
-            </div>
-          </div>
+            </Flex>
+          </Flex>
 
-          <div className={styles.bottomRow}>
-            <p className={styles.email}>skillup01.official@gmail.com</p>
-            <p className={styles.copy}>ⓒ 2025 Skill UP. All rights reserved.</p>
-          </div>
-        </div>
+          <Flex direction="column" gap="0.25rem" className={styles.bottomRow}>
+            <Text typography="label4_m_12" color="neutral-70">
+              skillup01.official@gmail.com
+            </Text>
+            <Text typography="label4_m_12" color="neutral-70">
+              ⓒ 2025 Skill UP. All rights reserved.
+            </Text>
+          </Flex>
+        </Flex>
 
         {/* 오른쪽 영역 */}
-        <div className={styles.rightBlock}>
-          <div className={styles.iconGroup}>
+        <Flex align="center" gap="1rem">
+          <Flex align="center" gap="0.625rem">
             <Link href="/search" className={styles.iconBtn} aria-label="검색">
-              <Search size={24} />
+              <Flex
+                justify="center"
+                align="center"
+                style={{ width: "100%", height: "100%" }}
+              >
+                <SearchIcon color="currentColor" />
+              </Flex>
             </Link>
-            <Link href="https://www.instagram.com/skill_up._/" target="_blank" className={styles.iconBtn} aria-label="인스타그램">
-              <Instagram size={24} />
+            <Link
+              href="https://www.instagram.com/skill_up._/"
+              target="_blank"
+              className={styles.iconBtn}
+              aria-label="인스타그램"
+            >
+              <Flex
+                justify="center"
+                align="center"
+                style={{ width: "100%", height: "100%" }}
+              >
+                <InstagramIcon color="currentColor" />
+              </Flex>
             </Link>
-            <Link href="mailto:skillup01.official@gmail.com" className={styles.iconBtn} aria-label="이메일">
-              <Mail size={24} />
+            <Link
+              href="mailto:skillup01.official@gmail.com"
+              className={styles.iconBtn}
+              aria-label="이메일"
+            >
+              <Flex
+                justify="center"
+                align="center"
+                style={{ width: "100%", height: "100%" }}
+              >
+                <MailIcon color="currentColor" />
+              </Flex>
             </Link>
-          </div>
-          <Link href="/submit" className={styles.submitBtn}>
-            행사 제보하기 &gt;
-          </Link>
-        </div>
-      </div>
+          </Flex>
+          <Button
+            variant="secondary"
+            size="extraLarge"
+            icon={<ChevronRightIcon />}
+          >
+            <Text typography="sub2_m_18" color="white">
+              행사 제보하기
+            </Text>
+          </Button>
+        </Flex>
+      </Flex>
     </footer>
   );
 }
