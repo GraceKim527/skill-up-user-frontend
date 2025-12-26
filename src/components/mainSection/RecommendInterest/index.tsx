@@ -8,25 +8,29 @@ import styles from "./styles.module.css";
 import { BookmarkIcon } from "@/assets/icons/BookmarkIcon";
 import IconButton from "@/components/common/IconButton";
 import Text from "@/components/common/Text";
-import LoginImage from "@/assets/images/loginImg.png";
+import { useRecommendedEvents } from "@/hooks/useHome";
+import { Event } from "@/types/event";
 
 export default function RecommendInterest() {
   const [bookmarkedCards, setBookmarkedCards] = useState<Set<number>>(
     new Set()
   );
 
+  // API 데이터 가져오기
+  const { data, isLoading, error } = useRecommendedEvents();
+
   const handleBookmarkClick = (
     e: React.MouseEvent<HTMLButtonElement>,
-    index: number
+    eventId: number
   ) => {
     e.preventDefault();
     e.stopPropagation();
     setBookmarkedCards((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
+      if (newSet.has(eventId)) {
+        newSet.delete(eventId);
       } else {
-        newSet.add(index);
+        newSet.add(eventId);
       }
       return newSet;
     });
@@ -85,46 +89,80 @@ export default function RecommendInterest() {
         </Flex>
 
         <div className={styles.cardGrid}>
-          {Array.from({ length: 4 }).map((_, i) => {
-            const isBookmarked = bookmarkedCards.has(i);
-            return (
-              <Flex key={i} direction="column" gap="0.5rem">
-                <div className={styles.imgBox}>
-                  <img src={LoginImage.src.toString()} alt="Login Image" />
-                  <IconButton
-                    variant="opacity"
-                    size="large"
-                    icon={
-                      <BookmarkIcon
-                        fillColor={isBookmarked ? "var(--Common-white)" : "none"}
-                        strokeColor={
-                          isBookmarked ? "none" : "var(--Common-white)"
-                        }
-                      />
-                    }
-                    onClick={(e) => handleBookmarkClick(e, i)}
-                    className={styles.bookmarkBtn}
-                  />
-                </div>
-                <Flex direction="column">
-                  <Text
-                    typography="head4_sb_20"
-                    color="white"
-                    className={styles.metaText}
-                  >
-                    메인타이틀
-                  </Text>
-                  <Text
-                    typography="body1_r_16"
-                    color="neutral-95"
-                    className={styles.metaText}
-                  >
-                    서브타이틀이 들어가면 좋겠어요
-                  </Text>
+          {isLoading ? (
+            <Flex
+              justify="center"
+              align="center"
+              style={{ gridColumn: "1 / -1", minHeight: "300px" }}
+            >
+              <Text typography="body1_r_16" color="neutral-95">
+                로딩중...
+              </Text>
+            </Flex>
+          ) : error ? (
+            <Flex
+              justify="center"
+              align="center"
+              style={{ gridColumn: "1 / -1", minHeight: "300px" }}
+            >
+              <Text typography="body1_r_16" color="neutral-95">
+                데이터를 불러오는데 실패했습니다.
+              </Text>
+            </Flex>
+          ) : !data || !data.homeEventResponseList || data.homeEventResponseList.length === 0 ? (
+            <Flex
+              justify="center"
+              align="center"
+              style={{ gridColumn: "1 / -1", minHeight: "300px" }}
+            >
+              <Text typography="body1_r_16" color="neutral-95">
+                표시할 행사가 없습니다.
+              </Text>
+            </Flex>
+          ) : (
+            data.homeEventResponseList.map((event: Event) => {
+              const isBookmarked = bookmarkedCards.has(event.id);
+              return (
+                <Flex key={event.id} direction="column" gap="0.5rem">
+                  <div className={styles.imgBox}>
+                    <img src={event.thumbnailUrl} alt={event.title} />
+                    <IconButton
+                      variant="opacity"
+                      size="large"
+                      icon={
+                        <BookmarkIcon
+                          fillColor={
+                            isBookmarked ? "var(--Common-white)" : "none"
+                          }
+                          strokeColor={
+                            isBookmarked ? "none" : "var(--Common-white)"
+                          }
+                        />
+                      }
+                      onClick={(e) => handleBookmarkClick(e, event.id)}
+                      className={styles.bookmarkBtn}
+                    />
+                  </div>
+                  <Flex direction="column">
+                    <Text
+                      typography="head4_sb_20"
+                      color="white"
+                      className={styles.metaText}
+                    >
+                      {event.title}
+                    </Text>
+                    <Text
+                      typography="body1_r_16"
+                      color="neutral-95"
+                      className={styles.metaText}
+                    >
+                      {event.scheduleText}
+                    </Text>
+                  </Flex>
                 </Flex>
-              </Flex>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </Flex>
     </section>
