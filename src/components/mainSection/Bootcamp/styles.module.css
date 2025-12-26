@@ -1,0 +1,9 @@
+.bootcampSection {
+  background: var(--Common-black);
+  padding: 6.25rem 0;
+}
+
+.inner {
+  max-width: 77.5rem;
+  margin: 0 auto;
+}

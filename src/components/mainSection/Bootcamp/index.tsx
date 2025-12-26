@@ -1,20 +1,34 @@
+// src/components/mainSection/Bootcamp/index.tsx
+
 "use client";
 import EventCard from "@/components/common/EventCard";
 import Flex from "@/components/common/Flex";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import TabMenu from "@/components/common/Tab";
 import { eventListMock } from "@/mocks/eventListMock";
+import Text from "@/components/common/Text";
 
 export default function Bootcamp() {
   return (
-    <section className={styles.bootcampSection} aria-labelledby="recent-title">
-      <Flex direction="column" gap="40px" className={styles.inner}>
-        <Flex justify="space-between" align="flex-end" gap="40px">
+    <Flex
+      as="section"
+      className={styles.bootcampSection}
+      aria-labelledby="recent-title"
+    >
+      <Flex direction="column" gap="2.5rem" className={styles.inner}>
+        <Flex justify="space-between" align="flex-end" gap="2.5rem">
           <Flex direction="column">
-            <p className={styles.subTitle}>부트캠프</p>
-            <h2 id="rec-title" className={styles.title}>
-              지금<span className={styles.titleSpan}>모집중인 부트캠프</span>
-            </h2>
+            <Text typography="sub2_m_18" color="primary-strong">
+              부트캠프
+            </Text>
+            <Flex gap="0.5rem">
+              <Text typography="head1_m_42" color="white">
+                지금
+              </Text>
+              <Text typography="head5_sb_42" color="white">
+                모집중인 부트캠프
+              </Text>
+            </Flex>
           </Flex>
 
           <TabMenu
@@ -25,16 +39,12 @@ export default function Bootcamp() {
           />
         </Flex>
 
-        <Flex wrap="wrap" gap="12px">
-          {eventListMock.map((item) => (
+        <Flex gap="0.75rem">
+          {eventListMock.slice(0, 4).map((item) => (
             <EventCard key={item.id} size="medium" event={item} />
           ))}
         </Flex>
-
-        <Flex justify="center">
-          <button className={styles.moreBtn}>최근 본 행사 더보기</button>
-        </Flex>
       </Flex>
-    </section>
+    </Flex>
   );
 }
