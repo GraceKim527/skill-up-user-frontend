@@ -105,7 +105,15 @@ export default function SearchModalContent({ onClose }: SearchModalContentProps)
                 >
                   {search}
                 </Text>
-                <CloseIcon onClick={() => removeSearch(search)} />
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeSearch(search);
+                  }}
+                  style={{ display: "flex", cursor: "pointer" }}
+                >
+                  <CloseIcon />
+                </div>
               </button>
             ))
           ) : (

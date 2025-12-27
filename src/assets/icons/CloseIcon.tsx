@@ -1,12 +1,6 @@
 // src/assets/icons/CloseIcon.tsx
 
-export default function CloseIcon({
-  color,
-  onClick,
-}: {
-  color?: string;
-  onClick?: () => void;
-}) {
+export default function CloseIcon({ color }: { color?: string }) {
   if (!color) color = "#474747";
   return (
     <svg
@@ -15,7 +9,6 @@ export default function CloseIcon({
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={onClick}
     >
       <path
         d="M15 3L3 15M3 3L15 15"
