@@ -21,6 +21,8 @@ import { userNameAtom, userEmailAtom } from "@/store/authAtoms";
 import { useUserEmailAndName } from "@/hooks/useUser";
 import Text from "../Text";
 import ChevronDownIcon from "@/assets/icons/ChevronDownIcon";
+import { useRouter } from "next/navigation";
+import SearchModalContent from "@/components/main/SearchModalContent";
 
 interface HeaderProps {
   variant: "main" | "sub";
@@ -30,7 +32,7 @@ export default function Header({ variant }: HeaderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
   const { isAuthenticated, logout } = useAuth();
-
+  const router = useRouter();
   // 로그인 상태일 때 유저 이메일/이름 자동 조회 (백그라운드 업데이트)
   useUserEmailAndName();
 
@@ -47,6 +49,10 @@ export default function Header({ variant }: HeaderProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const toggleProfileModal = () => setIsProfileModalOpen((prev) => !prev);
 
+  // 검색 모달 상태
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const toggleSearchModal = () => setIsSearchModalOpen((prev) => !prev);
+
   // 약관 동의 모달 상태
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [pendingSocialType, setPendingSocialType] = useState<SocialType | null>(
@@ -57,6 +63,7 @@ export default function Header({ variant }: HeaderProps) {
 
   const handleLogout = () => {
     logout();
+    router.push("/");
   };
 
   const handleSocialLoginClick = (socialType: SocialType) => {
@@ -132,8 +139,10 @@ export default function Header({ variant }: HeaderProps) {
               placeholder="검색어를 입력해주세요."
               className={styles.searchBox}
               id="searchInput"
+              readOnly
+              onClick={toggleSearchModal}
             />
-            <button className={styles.searchBtn}>
+            <button className={styles.searchBtn} onClick={toggleSearchModal}>
               <Image src={SearchIcon} alt="search" width={20} height={20} />
             </button>
           </div>
@@ -185,6 +194,7 @@ export default function Header({ variant }: HeaderProps) {
         </div>
       </div>
 
+      {/* 로그인 모달 */}
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <LoginContent
           onSocialLoginClick={handleSocialLoginClick}
@@ -195,6 +205,11 @@ export default function Header({ variant }: HeaderProps) {
       {/* 약관 동의 모달 (로그인 모달과 독립적으로 렌더링) */}
       <Modal isOpen={isTermsModalOpen} toggle={handleTermsCancel}>
         <TermsAgreementContent onConfirm={handleTermsConfirm} />
+      </Modal>
+
+      {/* 검색 모달 */}
+      <Modal isOpen={isSearchModalOpen} toggle={toggleSearchModal}>
+        <SearchModalContent onClose={toggleSearchModal} />
       </Modal>
     </header>
   );
