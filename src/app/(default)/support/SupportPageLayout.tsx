@@ -86,7 +86,7 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
 
   return (
     <>
-      <Flex direction="column" gap={4} className={styles.content}>
+      <Flex direction="column" gap={2} className={styles.content}>
         <Text typography="head2_sb_30" color="black" as="h1">
           고객센터
         </Text>
@@ -143,8 +143,8 @@ export default function SupportPageLayout({ faqData }: SupportPageLayoutProps) {
         message={
           <>
             탈퇴 신청이 완료되었습니다. 계정은 14일간 &apos;탈퇴 대기&apos;
-            상태로 유지됩니다. 로그인하면 언제든 복구할 수 있으며, 14일
-            이후에는 모든 정보가 완전히 삭제됩니다.
+            상태로 유지됩니다. 로그인하면 언제든 복구할 수 있으며, 14일 이후에는
+            모든 정보가 완전히 삭제됩니다.
           </>
         }
         onConfirm={handleConfirmWithdrawal}

@@ -13,7 +13,7 @@ export default function SupportPage() {
   // TODO : 추후 스켈레톤 대체 필요
   if (isLoading) {
     return (
-      <div style={{ paddingTop: "6rem" }}>
+      <div style={{ paddingTop: "6rem", paddingBottom: "10rem" }}>
         <Flex
           direction="column"
           gap={2}
@@ -30,14 +30,14 @@ export default function SupportPage() {
 
   if (error) {
     return (
-      <div style={{ paddingTop: "6rem" }}>
+      <div style={{ paddingTop: "6rem", paddingBottom: "10rem" }}>
         <p>FAQ 데이터를 불러올 수 없습니다.</p>
       </div>
     );
   }
 
   return (
-    <div style={{ paddingTop: "6rem" }}>
+    <div style={{ paddingTop: "6rem", paddingBottom: "10rem" }}>
       <SupportPageLayout faqData={faqData || []} />
     </div>
   );
