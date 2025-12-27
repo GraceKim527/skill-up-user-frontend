@@ -42,6 +42,7 @@ export const bootcampFilterAtoms = createPageFilterAtoms();
 export const hackathonFilterAtoms = createPageFilterAtoms();
 export const mentoringFilterAtoms = createPageFilterAtoms();
 export const articleFilterAtoms = createPageFilterAtoms();
+export const searchFilterAtoms = createPageFilterAtoms();
 // 페이지별 atom 매핑 객체
 export const pageFilterAtomsMap = {
   conference: conferenceFilterAtoms,
@@ -49,20 +50,22 @@ export const pageFilterAtomsMap = {
   hackathon: hackathonFilterAtoms,
   mentoring: mentoringFilterAtoms,
   article: articleFilterAtoms,
+  search: searchFilterAtoms,
 } as const;
 
 // 페이지 ID 타입
 export type PageId = keyof typeof pageFilterAtomsMap;
 
-// 카테고리 매핑
-export const PAGE_CATEGORY_MAP: Record<PageId, EventSearchParams["category"]> =
-  {
-    conference: "CONFERENCE_SEMINAR",
-    bootcamp: "BOOTCAMP_CLUB",
-    hackathon: "COMPETITION_HACKATHON",
-    mentoring: "NETWORKING_MENTORING",
-    article: "ARTICLE",
-  };
+// 카테고리 매핑 (search는 카테고리가 없음)
+export const PAGE_CATEGORY_MAP: Partial<
+  Record<PageId, EventSearchParams["category"]>
+> = {
+  conference: "CONFERENCE_SEMINAR",
+  bootcamp: "BOOTCAMP_CLUB",
+  hackathon: "COMPETITION_HACKATHON",
+  mentoring: "NETWORKING_MENTORING",
+  article: "ARTICLE",
+};
 
 // UI 역할명을 API 역할명으로 변환하는 맵
 const ROLE_TO_API_MAP: Record<string, string> = {
@@ -80,7 +83,10 @@ const convertRolesToApi = (roles: RoleOption[]): string[] => {
 };
 
 // Jotai 필터 상태를 API params로 변환하는 derived atom 생성
-export const createEventSearchParamsAtom = (pageId: PageId) => {
+// search는 별도로 처리하므로 제외
+export const createEventSearchParamsAtom = (
+  pageId: Exclude<PageId, "search">
+) => {
   const atoms = pageFilterAtomsMap[pageId];
 
   return atom<EventSearchParams>((get) => {
@@ -93,7 +99,7 @@ export const createEventSearchParamsAtom = (pageId: PageId) => {
     const currentPage = get(atoms.currentPageAtom);
 
     const params: EventSearchParams = {
-      category: PAGE_CATEGORY_MAP[pageId],
+      category: PAGE_CATEGORY_MAP[pageId]!,
       sort: sortOption,
       page: currentPage - 1, // UI는 1부터, API는 0부터 시작
     };

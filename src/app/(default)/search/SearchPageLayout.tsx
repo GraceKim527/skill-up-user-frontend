@@ -1,4 +1,4 @@
-// src/components/events/EventPageLayout/index.tsx
+// src/app/(default)/search/SearchPageLayout.tsx
 
 "use client";
 
@@ -6,45 +6,37 @@ import { useMemo } from "react";
 import { useAtom } from "jotai";
 import EventCard from "@/components/common/EventCard";
 import EventEmpty from "@/components/events/EventEmpty";
-import EventPageHeader from "@/components/events/EventPageHeader";
+import EventHeader from "@/components/events/EventHeader";
+import SortDropdown from "@/components/events/sorting/SortDropdown";
+import FilterButton from "@/components/events/filters/FilterButton";
+import FilterBadges from "@/components/events/filters/FilterBadges";
 import Pagination from "@/components/common/Pagination";
 import Button from "@/components/common/Button";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
 import ChevronRightIcon from "@/assets/icons/ChevronRightIcon";
-import { Event } from "@/types/event";
+import SearchFilterView from "@/components/events/filters/views/SearchFilterView";
+import { Event, EventSearchRequest } from "@/types/event";
 import { usePageFilters } from "@/components/events/filters/hooks/usePageFilters";
-import { ITEMS_PER_PAGE, generatePageOptions } from "@/constants/pagination";
-import styles from "./styles.module.css";
+import {
+  ITEMS_PER_PAGE,
+  generatePageOptions,
+  SORT_OPTIONS,
+} from "@/constants/pagination";
 import { EventSortOption } from "@/constants/event";
 import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
-import {
-  PAGE_CATEGORY_MAP,
-  pageFilterAtomsMap,
-} from "@/components/events/filters/atoms/pageFilterAtoms";
+import { pageFilterAtomsMap } from "@/components/events/filters/atoms/pageFilterAtoms";
+import { useSearchEvents } from "@/hooks/useEventList";
+import styles from "@/components/events/EventPageLayout/styles.module.css";
 
-interface EventPageLayoutProps {
-  pageId: "bootcamp" | "conference" | "hackathon" | "mentoring";
-  title: string;
-  eventList: Event[];
-  total: number;
-  FilterView: React.ComponentType;
-  emptyUrl: string;
-  isLoadingEventList?: boolean;
+interface SearchPageLayoutProps {
+  searchQuery: string;
 }
 
-export default function EventPageLayout({
-  pageId,
-  title,
-  eventList,
-  total,
-  FilterView,
-  emptyUrl,
-  isLoadingEventList = false,
-}: EventPageLayoutProps) {
+export default function SearchPageLayout({
+  searchQuery,
+}: SearchPageLayoutProps) {
   const {
-    selectedRoles,
-    setSelectedRoles,
     onOfflineFilter,
     setOnOfflineFilter,
     freeFilter,
@@ -55,17 +47,44 @@ export default function EventPageLayout({
     setTempFreeFilter,
     handleApply,
     handleReset,
-  } = usePageFilters({ pageId });
+  } = usePageFilters({ pageId: "search" });
 
   const [currentPage, setCurrentPage] = useAtom(
-    pageFilterAtomsMap[pageId].currentPageAtom
+    pageFilterAtomsMap.search.currentPageAtom
   );
 
-  // 추천 이벤트 조회 - 검색 결과가 없을 때만 호출 (로딩 중이 아닐 때)
-  const category = PAGE_CATEGORY_MAP[pageId]!;
-  const shouldFetchRecommended = !isLoadingEventList && eventList.length === 0;
+  // 검색 파라미터 구성
+  const searchParams: EventSearchRequest = useMemo(() => {
+    const params: EventSearchRequest = {
+      searchString: searchQuery,
+      sort: sortOption as EventSortOption,
+      page: currentPage - 1, // UI는 1부터, API는 0부터
+    };
+
+    // 온오프라인 필터
+    if (onOfflineFilter === "online") {
+      params.eventFormat = "ONLINE";
+    } else if (onOfflineFilter === "offline") {
+      params.eventFormat = "OFFLINE";
+    }
+
+    // 무료 필터
+    if (freeFilter) {
+      params.isFree = true;
+    }
+
+    return params;
+  }, [searchQuery, sortOption, currentPage, onOfflineFilter, freeFilter]);
+
+  const { data, isLoading } = useSearchEvents(searchParams);
+
+  const eventList = data?.homeEventResponseList || [];
+  const total = data?.total || 0;
+
+  // 추천 이벤트 조회 - 검색 결과가 없을 때만 호출
+  const shouldFetchRecommended = !isLoading && eventList.length === 0;
   const { data: recommendedEvents, isLoading: isLoadingRecommended } =
-    useRecommendedEvents(category, shouldFetchRecommended);
+    useRecommendedEvents("CONFERENCE_SEMINAR", shouldFetchRecommended);
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
   const pageOptions = useMemo(
@@ -91,27 +110,39 @@ export default function EventPageLayout({
       gap={1.25}
       className={styles.container}
     >
-      <EventPageHeader
-        title={title}
-        count={total}
-        selectedRoles={selectedRoles}
-        onRolesChange={setSelectedRoles}
-        onOfflineFilter={onOfflineFilter}
-        freeFilter={freeFilter}
-        onClearOnOfflineFilter={() => {
-          setOnOfflineFilter("");
-          setTempOnOfflineFilter("");
-        }}
-        onClearFreeFilter={() => {
-          setFreeFilter(false);
-          setTempFreeFilter(false);
-        }}
-        sortOption={sortOption}
-        onSortChange={(value) => setSortOption(value as EventSortOption)}
-        onApply={handleApply}
-        onReset={handleReset}
-        FilterView={FilterView}
-      />
+      {/* 검색 헤더 - 직군 필터 제외 */}
+      <Flex direction="column" gap={1.5} style={{ width: "100%" }}>
+        <EventHeader title="행사 검색 결과" count={total} />
+        <Flex align="center" justify="flex-end">
+          <Flex align="center" gap={0.5}>
+            <FilterBadges
+              onOfflineFilter={onOfflineFilter}
+              freeFilter={freeFilter}
+              onClearOnOfflineFilter={() => {
+                setOnOfflineFilter("");
+                setTempOnOfflineFilter("");
+              }}
+              onClearFreeFilter={() => {
+                setFreeFilter(false);
+                setTempFreeFilter(false);
+              }}
+            />
+            <FilterButton onApply={handleApply} onReset={handleReset}>
+              <SearchFilterView />
+            </FilterButton>
+            <SortDropdown
+              selected={
+                SORT_OPTIONS.find((option) => option.value === sortOption) ||
+                SORT_OPTIONS[0]
+              }
+              setSelected={(option) =>
+                setSortOption(option.value as EventSortOption)
+              }
+              options={SORT_OPTIONS}
+            />
+          </Flex>
+        </Flex>
+      </Flex>
 
       <Flex direction="column" gap={6.25} style={{ width: "100%" }}>
         {total > 0 && eventList.length === 0 ? (
@@ -123,7 +154,7 @@ export default function EventPageLayout({
                   조건에 맞는 행사가 없어요. <br /> 조건을 다시 설정해보세요
                 </div>
               }
-              url={emptyUrl}
+              url="/support"
               buttonText="행사 등록하기"
             />
             <Flex direction="column" gap={1}>
@@ -162,9 +193,11 @@ export default function EventPageLayout({
           // total도 0이고 데이터도 없는 경우 (실제로 데이터가 없음)
           <>
             <EventEmpty
-              description={<>{title}에 등록된 행사가 없어요</>}
-              url={emptyUrl}
-              buttonText="행사 등록하기"
+              description={
+                <div style={{ textAlign: "center" }}>
+                  {`'${searchQuery}'`} <br /> 행사 검색 결과가 없습니다.
+                </div>
+              }
             />
             <Flex direction="column" gap={1}>
               <Flex align="center" justify="space-between">
