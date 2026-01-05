@@ -57,7 +57,7 @@ export default function RecommendInterest() {
         <Flex direction="column" gap="1.5rem">
           <Flex direction="column" gap="1rem">
             <Text typography="label1_r_18" color="neutral-95">
-              HERE&apos;S AN EVENT YOU MIGHT BE INTERESTED IN
+              HERE&apos;S EVENTS YOU MIGHT BE INTERESTED IN
             </Text>
             <Flex direction="column">
               <Flex gap="0.5rem">
@@ -109,7 +109,9 @@ export default function RecommendInterest() {
                 데이터를 불러오는데 실패했습니다.
               </Text>
             </Flex>
-          ) : !data || !data.homeEventResponseList || data.homeEventResponseList.length === 0 ? (
+          ) : !data ||
+            !data.homeEventResponseList ||
+            data.homeEventResponseList.length === 0 ? (
             <Flex
               justify="center"
               align="center"

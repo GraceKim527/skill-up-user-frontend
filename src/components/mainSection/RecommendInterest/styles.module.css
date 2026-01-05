@@ -8,15 +8,18 @@
   margin: 0 auto;
 }
 
+.keywordBox {
+  width: 23.75rem;
+}
+
 .keywordBtn {
-  background: #2c2c36;
+  background: var(--Opacity_w_10);
   border: 1px solid var(--Neutral-50);
   font-size: 0.8125rem;
   padding: 0.375rem 1rem;
   border-radius: 0.25rem;
-  cursor: pointer;
   transition: background 0.2s;
-  color: #c4c4c4;
+  color: var(--Neutral-90);
   font-weight: 500;
   line-height: 1.4;
 }

@@ -30,6 +30,7 @@
   --Error-normal: #ff6359;
   --Opacity_b_40: rgba(0, 0, 0, 0.4);
   --Opacity_b_60: rgba(0, 0, 0, 0.6);
+  --Opacity_w_10: rgba(255, 255, 255, 0.1);
 }
 
 html,

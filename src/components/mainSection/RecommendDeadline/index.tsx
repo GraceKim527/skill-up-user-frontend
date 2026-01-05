@@ -6,9 +6,9 @@ import Text from "@/components/common/Text";
 import styles from "./styles.module.css";
 import { useEndingSoonEvents } from "@/hooks/useHome";
 import { Event } from "@/types/event";
+import CautionIcon from "@/assets/icons/CautionIcon";
 
 export default function RecommendDeadline() {
-  // API 데이터 가져오기 (4개만)
   const { data, isLoading, error } = useEndingSoonEvents(4);
 
   return (
@@ -42,10 +42,16 @@ export default function RecommendDeadline() {
           </Flex>
         ) : !data.homeEventResponseList ||
           data.homeEventResponseList.length === 0 ? (
-          <Flex justify="center" align="center" style={{ minHeight: "300px" }}>
-            <Text typography="body1_r_16" color="neutral-95">
-              곧 마감되는 행사가 없습니다.
-            </Text>
+          <Flex justify="center" align="center" className={styles.empty}>
+            <Flex direction="column" gap={0.5} align="center">
+              <CautionIcon color="#9B9B9B" />
+              <Text typography="head4_sb_20" color="white">
+                곧 신청 마감되는 행사가 없어요
+              </Text>
+              <Text typography="body2_r_14" color="neutral-60" align="center">
+                원하는 행사가 있다면 <br /> 상단의 문의하기를 통해 문의해주세요.
+              </Text>
+            </Flex>
           </Flex>
         ) : (
           <Flex gap="0.75rem">
