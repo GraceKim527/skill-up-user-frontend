@@ -76,6 +76,7 @@ export default function Header({ variant }: HeaderProps) {
 
     try {
       const response = await getSocialLogin(pendingSocialType.toLowerCase());
+      console.log("소셜 로그인 응답:", response);
 
       // 응답에서 URL 추출 (data 필드에 URL이 포함되어 있음)
       if (response.code === "SUCCESS" && response.data) {
@@ -83,6 +84,7 @@ export default function Header({ variant }: HeaderProps) {
           ? response.data.split(": ")[1]
           : response.data;
 
+        console.log("리다이렉트될 URL:", url);
         window.location.href = url;
       }
     } catch (error) {
