@@ -22,11 +22,12 @@ import RecommendContents from "@/components/mainSection/RecommendContents";
 import Bootcamp from "@/components/mainSection/Bootcamp";
 import IconMenu from "@/components/mainSection/MainVisual/IconMenu";
 import NewsletterCTA from "@/components/mainSection/NewsletterCTA";
+import { ARTICLE_TAB } from "@/constants/article";
+import { getArticleList } from "@/api/article";
 
 export default async function Home() {
   const queryClient = new QueryClient();
 
-  // 서버에서 병렬로 데이터 prefetch (SSR)
   await Promise.all([
     // 해시태그 기반 추천 행사
     queryClient.prefetchQuery({
@@ -71,6 +72,13 @@ export default async function Home() {
     queryClient.prefetchQuery({
       queryKey: ["home", "banners"],
       queryFn: getBanners,
+    }),
+
+    // 추천 아티클
+    queryClient.prefetchQuery({
+      queryKey: ["home", "recommendedArticles", { tab: ARTICLE_TAB.ALL }],
+      queryFn: () =>
+        getArticleList(ARTICLE_TAB.ALL as unknown as typeof ARTICLE_TAB),
     }),
   ]);
 

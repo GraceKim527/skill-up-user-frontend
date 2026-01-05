@@ -1,23 +1,27 @@
 // 추천 콘텐츠
 "use client";
+import { useState } from "react";
 import Flex from "@/components/common/Flex";
 import styles from "./styles.module.css";
 import TabMenu from "@/components/common/Tab";
 import Text from "@/components/common/Text";
-import { useCategoryEvents } from "@/hooks/useHome";
-import { EVENT_CATEGORY } from "@/constants/event";
-import { Event } from "@/types/event";
+import { useRecommendedArticles } from "@/hooks/useArticle";
+import { ARTICLE_TAB, ARTICLE_TABS } from "@/constants/article";
+import { Article } from "@/types/article";
 
 export default function RecommendedContent() {
-  // API 데이터 가져오기 (아티클 카테고리, 5개)
-  const { data, isLoading, error } = useCategoryEvents(
-    EVENT_CATEGORY.ARTICLE,
-    5,
-    1
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    ARTICLE_TAB.ALL
   );
 
-  const events = data?.homeEventResponseList || [];
+  const { data, isLoading, error } = useRecommendedArticles(
+    selectedCategory as unknown as typeof ARTICLE_TAB
+  );
+  const articles = data?.articles || [];
 
+  const handleTabChange = (selected: string) => {
+    setSelectedCategory(selected);
+  };
   return (
     <Flex
       as="section"
@@ -42,9 +46,9 @@ export default function RecommendedContent() {
         </Flex>
 
         <TabMenu
-          tabs={["전체", "기획", "디자인", "개발", "AI"]}
-          defaultIndex={2}
-          onChange={() => {}}
+          tabs={ARTICLE_TABS}
+          defaultIndex={ARTICLE_TABS.indexOf(selectedCategory)}
+          onChange={handleTabChange}
           theme="light"
         />
       </Flex>
@@ -61,7 +65,7 @@ export default function RecommendedContent() {
             데이터를 불러오는데 실패했습니다.
           </Text>
         </Flex>
-      ) : events.length === 0 ? (
+      ) : articles.length === 0 ? (
         <Flex justify="center" align="center" style={{ minHeight: "300px" }}>
           <Text typography="body1_r_16" color="neutral-70">
             추천 컨텐츠가 없습니다.
@@ -69,9 +73,9 @@ export default function RecommendedContent() {
         </Flex>
       ) : (
         <div className={styles.cardList}>
-          {events.map((event: Event, idx: number) => (
+          {articles.map((article: Article, idx: number) => (
             <Flex
-              key={event.id}
+              key={article.id}
               direction="column"
               className={`${styles.card} ${idx === 0 ? styles.heroCard : ""}`}
               as="article"
@@ -82,7 +86,7 @@ export default function RecommendedContent() {
                   idx === 0 ? styles.heroThumb : ""
                 }`}
                 style={{
-                  backgroundImage: `url(${event.thumbnailUrl})`,
+                  backgroundImage: `url(${article.thumbnailUrl})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -91,17 +95,17 @@ export default function RecommendedContent() {
               <Flex direction="column">
                 <Flex align="center" justify="space-between">
                   <Text typography="head4_sb_20" color="black">
-                    {event.title}
+                    {article.title}
                   </Text>
                   <Flex align="center" gap="0.5rem">
                     <div className={styles.badge}>
                       <Text typography="label3_m_14" color="neutral-60">
-                        {event.locationText}
+                        {article.category}
                       </Text>
                     </div>
                     <div className={styles.badge}>
                       <Text typography="label3_m_14" color="neutral-60">
-                        {event.scheduleText}
+                        {article.date}
                       </Text>
                     </div>
                   </Flex>
@@ -112,7 +116,7 @@ export default function RecommendedContent() {
                   color="neutral-60"
                   className={styles.cardDesc}
                 >
-                  {event.priceText}
+                  {article.description}
                 </Text>
               </Flex>
             </Flex>
