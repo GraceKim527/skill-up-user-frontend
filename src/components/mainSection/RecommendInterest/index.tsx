@@ -10,14 +10,21 @@ import IconButton from "@/components/common/IconButton";
 import Text from "@/components/common/Text";
 import { useRecommendedEvents } from "@/hooks/useHome";
 import { Event } from "@/types/event";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function RecommendInterest() {
+  const { isAuthenticated } = useAuth();
   const [bookmarkedCards, setBookmarkedCards] = useState<Set<number>>(
     new Set()
   );
 
-  // API 데이터 가져오기
+  // API 데이터 가져오기 (Hook은 항상 먼저 호출)
   const { data, isLoading, error } = useRecommendedEvents();
+
+  // 비로그인 시 섹션을 렌더링하지 않음
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleBookmarkClick = (
     e: React.MouseEvent<HTMLButtonElement>,
