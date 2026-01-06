@@ -16,6 +16,7 @@ import Flex from "@/components/common/Flex";
 import { Event } from "@/types/event";
 import { EVENT_CATEGORY_LABEL } from "@/constants/event";
 import { useToggleEventBookmark } from "@/hooks/useEventDetail";
+import LoginImage from "@/assets/images/loginImg.png";
 
 interface EventCardProps {
   size: "small" | "medium" | "large" | "block";
@@ -62,7 +63,7 @@ export default function EventCard({
   };
 
   // 이미지 URL이 없으면 placeholder 사용
-  const imageSrc = thumbnailUrl;
+  const imageSrc = thumbnailUrl || LoginImage.src.toString();
   const eventUrl = `/conference/${id}`;
 
   const categoryBadgeLabel = EVENT_CATEGORY_LABEL[category] || "";
