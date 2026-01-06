@@ -1,7 +1,7 @@
 // src/components/main/SearchModalContent.tsx
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Flex from "@/components/common/Flex";
 import Text from "@/components/common/Text";
@@ -22,6 +22,14 @@ export default function SearchModalContent({
   const [inputValue, setInputValue] = useState("");
   const { searches, addSearch, removeSearch, clearAll } = useRecentSearches();
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // 모달이 열릴 때 검색 input에 자동 포커스
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -66,6 +74,7 @@ export default function SearchModalContent({
         <form onSubmit={handleSearch} style={{ width: "100%" }}>
           <Flex gap={0.75} className={styles.searchModalContentInput}>
             <input
+              ref={inputRef}
               type="text"
               placeholder="검색어를 입력해주세요."
               className={styles.searchModalContentInputInput}
