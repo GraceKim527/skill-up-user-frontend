@@ -23,6 +23,8 @@ export default function SupportPage() {
           <Skeleton width="100%" height="5rem" />
           <Skeleton width="100%" height="5rem" />
           <Skeleton width="100%" height="5rem" />
+          <Skeleton width="100%" height="5rem" />
+          <Skeleton width="100%" height="5rem" />
         </Flex>
       </div>
     );

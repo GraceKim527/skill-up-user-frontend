@@ -30,9 +30,9 @@ export default function Footer() {
               />
             </div>
             <Flex align="center" gap="0.625rem" className={styles.policyGroup}>
-              <Link href="/faq">자주 묻는 질문</Link>
-              <Link href="/terms">서비스이용약관</Link>
-              <Link href="/privacy">개인정보처리방침</Link>
+              <Link href="/support">자주 묻는 질문</Link>
+              <Link href="#">서비스이용약관</Link>
+              <Link href="#">개인정보처리방침</Link>
             </Flex>
           </Flex>
 
@@ -49,15 +49,6 @@ export default function Footer() {
         {/* 오른쪽 영역 */}
         <Flex align="center" gap="1rem">
           <Flex align="center" gap="0.625rem">
-            <Link href="/search" className={styles.iconBtn} aria-label="검색">
-              <Flex
-                justify="center"
-                align="center"
-                style={{ width: "100%", height: "100%" }}
-              >
-                <SearchIcon color="currentColor" />
-              </Flex>
-            </Link>
             <Link
               href="https://www.instagram.com/skill_up._/"
               target="_blank"
