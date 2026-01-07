@@ -2,7 +2,6 @@
 
 "use client";
 
-import { useMemo } from "react";
 import { useAtom } from "jotai";
 import EventCard from "@/components/common/EventCard";
 import EventEmpty from "@/components/events/EventEmpty";
@@ -68,12 +67,6 @@ export default function EventPageLayout({
     useRecommendedEvents(category, shouldFetchRecommended);
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-
-  const paginatedEvents = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return eventList.slice(startIndex, endIndex);
-  }, [eventList, currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -198,7 +191,7 @@ export default function EventPageLayout({
           // 데이터가 있는 경우
           <Flex direction="column" gap={6.25} style={{ width: "100%" }}>
             <div className={styles.cardList}>
-              {paginatedEvents.map((item) => (
+              {eventList.map((item) => (
                 <EventCard key={item.id} size="medium" event={item} />
               ))}
             </div>
