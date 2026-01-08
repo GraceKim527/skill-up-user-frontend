@@ -21,19 +21,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     >
       <div className={styles.articleCardImage}>
         <img src={article.thumbnailUrl} alt={article.title} />
-        <Flex
-          justify="space-between"
-          className={styles.articleCardImageOverlay}
-          gap={0.5}
-        >
-          {article.targetRoles.map((role) => (
-            <div className={styles.articleCardImageOverlayBadge} key={role}>
-              <Text typography="label3_m_14" color="white">
-                {role}
-              </Text>
-            </div>
-          ))}
-        </Flex>
       </div>
       <Flex direction="column" gap={0.5}>
         <Flex direction="column" gap={0.25}>

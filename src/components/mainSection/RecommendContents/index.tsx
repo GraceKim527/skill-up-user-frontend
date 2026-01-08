@@ -139,7 +139,10 @@ export default function RecommendedContent() {
 
       <Flex justify="center">
         {/* 추후 컴포넌트로 교체 */}
-        <button className={styles.moreBtn}>
+        <button
+          className={styles.moreBtn}
+          onClick={() => router.push("/article")}
+        >
           <Text typography="sub3_m_16" color="neutral-60">
             아티클 더보기
           </Text>

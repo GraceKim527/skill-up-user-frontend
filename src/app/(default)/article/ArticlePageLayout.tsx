@@ -11,6 +11,7 @@ import Pagination from "@/components/common/Pagination";
 import { useSearchArticles } from "@/hooks/useArticle";
 import Text from "@/components/common/Text";
 import { Article } from "@/types/article";
+import { JOB_CATEGORY } from "@/constants/category";
 
 export default function ArticlePageLayout() {
   const { selectedRoles, setSelectedRoles, currentPage, setCurrentPage } =
@@ -18,10 +19,16 @@ export default function ArticlePageLayout() {
       pageId: "article",
     });
 
+  // selectedRoles 배열에서 첫 번째 역할만 사용 (ALL이 아닌 경우)
+  const selectedTab =
+    selectedRoles.length > 0 && selectedRoles[0] !== JOB_CATEGORY.ALL
+      ? selectedRoles[0]
+      : undefined;
+
   const { data, isLoading, error } = useSearchArticles(
     undefined,
     currentPage - 1, // API는 0부터 시작
-    selectedRoles
+    selectedTab
   );
 
   const articles = data?.articles || [];
@@ -33,7 +40,11 @@ export default function ArticlePageLayout() {
       <Flex direction="column" gap={1.25}>
         <Flex direction="column" gap={1.5}>
           <EventHeader title="아티클" count={totalCount} isArticle={true} />
-          <RoleSelector selected={selectedRoles} onSelect={setSelectedRoles} />
+          <RoleSelector
+            selected={selectedRoles}
+            onSelect={setSelectedRoles}
+            multiSelect={false}
+          />
         </Flex>
         <Flex direction="column" gap={3.75}>
           {isLoading ? (

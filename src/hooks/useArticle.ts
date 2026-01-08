@@ -17,11 +17,11 @@ export const useRecommendedArticles = (tab?: JobCategory) => {
 export const useSearchArticles = (
   keyword?: string,
   page?: number,
-  tabs?: string[]
+  tab?: JobCategory
 ) => {
   return useQuery({
-    queryKey: ["articles", "search", keyword, page, tabs],
-    queryFn: () => searchArticles(keyword, page, tabs),
+    queryKey: ["articles", "search", keyword, page, tab],
+    queryFn: () => searchArticles(keyword, page, tab),
     staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
   });
 };
