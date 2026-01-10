@@ -3,7 +3,9 @@
 "use client";
 
 import { use } from "react";
-import HackathonDetailLayout from "./HackathonDetailLayout";
+import EventDetailLayout from "@/components/events/detail/EventDetailLayout";
+import { EVENT_CATEGORY } from "@/constants/event";
+import styles from "./styles.module.css";
 
 export default function HackathonDetailPage({
   params,
@@ -13,5 +15,11 @@ export default function HackathonDetailPage({
   const resolvedParams = use(params);
   const eventId = Number(resolvedParams.id);
 
-  return <HackathonDetailLayout eventId={eventId} />;
+  return (
+    <EventDetailLayout
+      eventId={eventId}
+      category={EVENT_CATEGORY.COMPETITION_HACKATHON}
+      className={styles.container}
+    />
+  );
 }

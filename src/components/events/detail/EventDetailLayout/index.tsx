@@ -1,4 +1,4 @@
-// src/app/hackathon/[id]/HackathonDetailLayout.tsx
+// src/components/events/detail/EventDetailLayout/index.tsx
 
 "use client";
 
@@ -15,17 +15,23 @@ import Flex from "@/components/common/Flex";
 import { useEventDetail } from "@/hooks/useEventDetail";
 import { useRecommendedEvents } from "@/hooks/useRecommendedEvents";
 import { formatDate, formatPriceWithUnit, getDdayLabel } from "@/utils/format";
-import { EVENT_CATEGORY } from "@/constants/event";
+import { EventCategory } from "@/constants/event";
 import { Event } from "@/types/event";
 
-export default function HackathonDetailLayout({
-  eventId,
-}: {
+interface EventDetailLayoutProps {
   eventId: number;
-}) {
+  category: EventCategory;
+  className?: string;
+}
+
+export default function EventDetailLayout({
+  eventId,
+  category,
+  className,
+}: EventDetailLayoutProps) {
   const { data: eventDetail, isLoading } = useEventDetail(eventId);
   const { data: recommendedEvents, isLoading: isLoadingRecommended } =
-    useRecommendedEvents(EVENT_CATEGORY.COMPETITION_HACKATHON);
+    useRecommendedEvents(category);
 
   if (isLoading) {
     return (
@@ -40,7 +46,7 @@ export default function HackathonDetailLayout({
   if (!eventDetail) return null;
 
   return (
-    <Flex gap="1rem" className={styles.container}>
+    <Flex gap="1rem" className={className || styles.container}>
       <StickyApplySection
         category={eventDetail.category}
         title={eventDetail.title}

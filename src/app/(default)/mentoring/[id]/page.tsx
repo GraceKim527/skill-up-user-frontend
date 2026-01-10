@@ -3,7 +3,9 @@
 "use client";
 
 import { use } from "react";
-import MentoringDetailLayout from "./MentoringDetailLayout";
+import EventDetailLayout from "@/components/events/detail/EventDetailLayout";
+import { EVENT_CATEGORY } from "@/constants/event";
+import styles from "./styles.module.css";
 
 export default function MentoringDetailPage({
   params,
@@ -13,5 +15,11 @@ export default function MentoringDetailPage({
   const resolvedParams = use(params);
   const eventId = Number(resolvedParams.id);
 
-  return <MentoringDetailLayout eventId={eventId} />;
+  return (
+    <EventDetailLayout
+      eventId={eventId}
+      category={EVENT_CATEGORY.NETWORKING_MENTORING}
+      className={styles.container}
+    />
+  );
 }

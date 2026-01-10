@@ -3,7 +3,9 @@
 "use client";
 
 import { use } from "react";
-import ConferenceDetailLayout from "./ConferenceDetailLayout";
+import EventDetailLayout from "@/components/events/detail/EventDetailLayout";
+import { EVENT_CATEGORY } from "@/constants/event";
+import styles from "./styles.module.css";
 
 export default function ConferenceDetailPage({
   params,
@@ -13,5 +15,11 @@ export default function ConferenceDetailPage({
   const resolvedParams = use(params);
   const eventId = Number(resolvedParams.id);
 
-  return <ConferenceDetailLayout eventId={eventId} />;
+  return (
+    <EventDetailLayout
+      eventId={eventId}
+      category={EVENT_CATEGORY.CONFERENCE_SEMINAR}
+      className={styles.conferenceDetailLayout}
+    />
+  );
 }

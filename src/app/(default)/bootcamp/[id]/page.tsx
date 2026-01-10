@@ -3,7 +3,9 @@
 "use client";
 
 import { use } from "react";
-import BootcampDetailLayout from "./BootcampDetailLayout";
+import EventDetailLayout from "@/components/events/detail/EventDetailLayout";
+import { EVENT_CATEGORY } from "@/constants/event";
+import styles from "./styles.module.css";
 
 export default function BootcampDetailPage({
   params,
@@ -13,5 +15,11 @@ export default function BootcampDetailPage({
   const resolvedParams = use(params);
   const eventId = Number(resolvedParams.id);
 
-  return <BootcampDetailLayout eventId={eventId} />;
+  return (
+    <EventDetailLayout
+      eventId={eventId}
+      category={EVENT_CATEGORY.BOOTCAMP_CLUB}
+      className={styles.bootcampDetailLayout}
+    />
+  );
 }
