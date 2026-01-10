@@ -1,4 +1,4 @@
-// src/types/event/event.ts
+// src/types/event.ts
 import {
   EventCategory,
   EventSortOption,
@@ -6,28 +6,38 @@ import {
   EventFormat,
 } from "@/constants/event";
 
-export interface Event {
+/**
+ * 모든 이벤트의 공통 기본 필드
+ */
+export interface BaseEvent {
   id: number;
-  thumbnailUrl: string;
-  online: boolean;
-  locationText: string;
   title: string;
-  scheduleText: string;
-  priceText: string;
-  d_dayLabel: string;
+  thumbnailUrl: string;
+  category: EventCategory;
+}
+
+/**
+ * 이벤트 목록 API 응답 (서버 → 클라이언트)
+ * 서버에서 포맷팅된 문자열과 계산된 값을 포함
+ */
+export interface EventListItemDto extends BaseEvent {
+  online: boolean; // API 필드명 그대로
+  locationText: string;
+  scheduleText: string; // 서버에서 포맷팅해서 줌
+  priceText: string; // 서버에서 포맷팅해서 줌
+  d_dayLabel: string; // 서버에서 계산해서 줌
   recommended: boolean;
   ad: boolean;
   bookmarked: boolean;
-  category: EventCategory;
   recommendedRate: number;
 }
 
-export interface EventDetail {
-  id: number;
-  title: string;
-  thumbnailUrl: string;
-  category: EventCategory;
-  eventStart: string;
+/**
+ * 이벤트 상세 API 응답 (서버 → 클라이언트)
+ * 원본 데이터를 포함 (날짜, 가격 등)
+ */
+export interface EventDetailDto extends BaseEvent {
+  eventStart: string; // ISO 8601 형식
   eventEnd: string;
   recruitStart: string;
   recruitEnd: string;
@@ -44,13 +54,28 @@ export interface EventDetail {
   targetRoles: string[];
 }
 
-// 행사 목록 조회 요청 타입
+/**
+ * 클라이언트에서 사용하는 이벤트 타입
+ * EventListItemDto의 별칭
+ */
+export type Event = EventListItemDto;
+
+/**
+ * 클라이언트에서 사용하는 이벤트 상세 타입
+ * EventDetailDto의 별칭
+ */
+export type EventDetail = EventDetailDto;
+
+/**
+ * 행사 목록 조회 요청 파라미터
+ * 카테고리별 행사 목록을 필터링하고 정렬하는데 사용
+ */
 export interface EventSearchParams {
   category: EventCategory;
   isOnline?: boolean;
   isFree?: boolean;
-  startDate?: string;
-  endDate?: string;
+  startDate?: string; // YYYY-MM-DD 형식
+  endDate?: string; // YYYY-MM-DD 형식
   sort: EventSortOption;
   targetRoles?: string[];
   page: number;
@@ -58,18 +83,23 @@ export interface EventSearchParams {
   validSort?: boolean;
 }
 
-// 행사 목록 조회 응답 타입
+/**
+ * 행사 목록 조회 API 응답
+ */
 export interface EventListResponse {
   total: number;
   homeEventResponseList: Event[];
 }
 
-// 행사 검색 요청 타입
+/**
+ * 행사 검색 요청 파라미터
+ * 키워드 기반 행사 검색에 사용
+ */
 export interface EventSearchRequest {
   searchString: string;
   sort?: EventSortOption;
-  eventStart?: string;
-  eventEnd?: string;
+  eventStart?: string; // YYYY-MM-DD 형식
+  eventEnd?: string; // YYYY-MM-DD 형식
   eventFormat?: EventFormat;
   isFree?: boolean;
   page: number;
