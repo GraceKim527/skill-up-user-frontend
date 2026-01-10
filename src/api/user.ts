@@ -3,6 +3,7 @@
 import tokenInstance from "@/api/tokenInstance";
 import instance from "@/api/instance";
 import { UserProfile, UserBookmarks } from "@/types/user";
+import { RoleName } from "@/constants/role";
 
 // 테스트 로그인 API
 export const getTestLogin = async () => {
@@ -33,9 +34,7 @@ export const getCustomerCenterInquiry = async () => {
 };
 
 // 유저 프로필 관심사
-export const getUserInterests = async (
-  roleName: "기획자" | "디자이너" | "개발자" | "마케팅"
-) => {
+export const getUserInterests = async (roleName: RoleName) => {
   const response = await tokenInstance.get("/user/my-page/profile/interest", {
     params: {
       roleName,
